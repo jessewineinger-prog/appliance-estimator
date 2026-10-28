@@ -30,7 +30,7 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">PM Client Pricing Suite</span>
-            <span class="text-xs text-slate-400 font-medium">Indianapolis (Marion County)</span>
+            <span id="locationCountyBadge" class="text-xs text-slate-400 font-medium">Indianapolis (Marion County)</span>
           </div>
           <h1 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1 tracking-tight">Appliance Replacement & Margin Estimator</h1>
           <p class="text-sm text-slate-500 mt-0.5">Competitive market benchmark with direct trade quotes, DW flat tiers, and divisible-by-11 pricing</p>
@@ -46,7 +46,10 @@
             <label class="block text-[10px] font-semibold uppercase text-slate-400">Sales Tax (%)</label>
             <input type="number" id="taxRateInput" value="7.0" step="0.1" class="w-16 px-2 py-1 text-sm font-semibold rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
           </div>
-          <div class="self-end">
+          <div class="self-end flex items-center gap-2">
+            <button type="button" id="btn_update_location" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-lg shadow-xs transition-colors flex items-center gap-1 cursor-pointer">
+              <span>↻ Update</span>
+            </button>
             <span class="inline-flex items-center text-xs font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1.5 rounded-lg border border-emerald-200/80">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> IN 7% Standard
             </span>
@@ -61,34 +64,7 @@
       <!-- LEFT COLUMN: CONTROLS & APPLIANCE SELECTION (5 COLS) -->
       <div class="lg:col-span-5 space-y-6">
 
-        <!-- DIRECT TRADE QUOTE INPUT: GRAND APPLIANCE (QUOTED) AT TOP -->
-        <section class="bg-gradient-to-br from-teal-50 to-emerald-50/50 rounded-2xl shadow-xs border-2 border-teal-500/80 p-5 space-y-4">
-          <div class="flex items-center justify-between pb-2 border-b border-teal-200/80">
-            <h2 class="text-sm font-bold uppercase tracking-wider text-teal-900 flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-teal-600"></span>
-              Grand Appliance (Quoted)
-            </h2>
-            <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-teal-600 text-white">YOUR ACTUAL COST</span>
-          </div>
-
-          <p class="text-xs text-teal-900 leading-relaxed">
-            Enter the direct trade estimate provided by your Grand Appliance rep. This is your true cost basis for calculating maximum profit margin against the client quote.
-          </p>
-
-          <div>
-            <label class="block text-xs font-semibold text-teal-900 mb-1">Total Quoted Amount from Grand Rep ($)</label>
-            <div class="relative">
-              <span class="absolute left-3 top-2.5 text-teal-700 font-bold text-sm">$</span>
-              <input type="number" id="grandQuotedTotal" value="1845" step="1" class="w-full pl-7 pr-3 py-2 text-base font-bold text-teal-950 bg-white rounded-xl border border-teal-300 focus:ring-2 focus:ring-teal-600 focus:outline-hidden">
-            </div>
-          </div>
-
-          <button type="button" id="btn_autofill_grand" class="w-full py-1.5 px-3 bg-white hover:bg-teal-100/60 border border-teal-300 text-teal-800 rounded-lg text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
-            <span>⚡ Populate from Grand Web Model (-10% Trade Estimate)</span>
-          </button>
-        </section>
-
-        <!-- 1. APPLIANCE SELECTION -->
+        <!-- 1. APPLIANCE SELECTION (Clean start: all unchecked, empty values) -->
         <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-4">
           <div class="flex items-center justify-between pb-2 border-b border-slate-100">
             <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
@@ -104,32 +80,32 @@
             <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer select-none">
-                  <input type="checkbox" id="app_washer" checked class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
+                  <input type="checkbox" id="app_washer" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
                   <span class="font-semibold text-slate-800 text-sm">Washing Machine</span>
                 </label>
                 <div class="flex items-center gap-1.5">
                   <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_washer" value="799" class="w-20 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <input type="number" id="price_washer" placeholder="e.g. 799" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
                 </div>
               </div>
-              <p class="text-[11px] text-slate-500 mt-1 pl-6">Default: Whirlpool WFW4720RW or similar front-load</p>
+              <p class="text-[11px] text-slate-500 mt-1 pl-6">Auto-selects washer hookup & installation materials</p>
             </div>
 
             <!-- Dryer -->
             <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer select-none">
-                  <input type="checkbox" id="app_dryer" checked class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
+                  <input type="checkbox" id="app_dryer" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
                   <span class="font-semibold text-slate-800 text-sm">Clothes Dryer</span>
                 </label>
                 <div class="flex items-center gap-1.5">
                   <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_dryer" value="799" class="w-20 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <input type="number" id="price_dryer" placeholder="e.g. 799" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
                 </div>
               </div>
               <div class="flex items-center gap-4 mt-2 pl-6">
                 <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                  <input type="radio" name="dryerType" value="electric" checked class="text-emerald-600 focus:ring-emerald-500"> Electric 240V
+                  <input type="radio" name="dryerType" value="electric" class="text-emerald-600 focus:ring-emerald-500"> Electric
                 </label>
                 <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
                   <input type="radio" name="dryerType" value="gas" class="text-emerald-600 focus:ring-emerald-500"> Gas
@@ -137,31 +113,31 @@
               </div>
             </div>
 
-            <!-- Stacked Laundry Center (All-in-One 27") -->
+            <!-- Stacked Laundry Center -->
             <div id="comboCardWrapper" class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer">
                   <input type="checkbox" id="app_combo" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
-                  <span class="font-semibold text-slate-800 text-sm">Stacked Laundry Center (All-in-One 27")</span>
+                  <span class="font-semibold text-slate-800 text-sm">Stacked Laundry Center</span>
                 </label>
                 <div class="flex items-center gap-1.5">
                   <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_combo" value="1549" class="w-20 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <input type="number" id="price_combo" placeholder="e.g. 1549" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
                 </div>
               </div>
-              <p class="text-[11px] text-slate-500 mt-1 pl-6">Single-chassis unit (e.g. GE GUD27ESSMWW). Disables separate stacking kit fees.</p>
+              <p class="text-[11px] text-slate-500 mt-1 pl-6">Auto-selects washer & dryer hookups. Disables separate stacking kit.</p>
             </div>
 
-            <!-- Built-in Dishwasher with Established Flat-Rate Tiers -->
+            <!-- Dishwasher (Built-In) with Established Flat-Rate Tiers -->
             <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white space-y-2.5">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer">
                   <input type="checkbox" id="app_dishwasher" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
-                  <span class="font-semibold text-slate-800 text-sm">Built-in Dishwasher</span>
+                  <span class="font-semibold text-slate-800 text-sm">Dishwasher (Built-In)</span>
                 </label>
                 <div class="flex items-center gap-1.5">
                   <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_dishwasher" value="349" class="w-20 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <input type="number" id="price_dishwasher" placeholder="e.g. 349" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
                 </div>
               </div>
 
@@ -175,15 +151,15 @@
                   </label>
                 </div>
                 <div class="grid grid-cols-3 gap-1.5">
-                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-center transition-all" data-cost="299" data-flat="660">
+                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-center transition-all cursor-pointer" data-cost="299" data-flat="660">
                     <span class="block text-slate-900">$299 Cost</span>
                     <span class="block text-emerald-700 font-extrabold text-[10px]">$660 Flat</span>
                   </button>
-                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border-2 border-emerald-500 bg-emerald-50 text-emerald-900 text-center transition-all" data-cost="349" data-flat="715">
+                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border-2 border-emerald-500 bg-emerald-50 text-emerald-900 text-center transition-all cursor-pointer" data-cost="349" data-flat="715">
                     <span class="block text-slate-900">$349 Cost</span>
                     <span class="block text-emerald-700 font-extrabold text-[10px]">$715 Flat</span>
                   </button>
-                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-center transition-all" data-cost="399" data-flat="770">
+                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-center transition-all cursor-pointer" data-cost="399" data-flat="770">
                     <span class="block text-slate-900">$399 Cost</span>
                     <span class="block text-emerald-700 font-extrabold text-[10px]">$770 Flat</span>
                   </button>
@@ -192,16 +168,16 @@
               </div>
             </div>
 
-            <!-- Microwave (OTR) -->
+            <!-- Microwave (Over-The-Range) -->
             <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer select-none">
                   <input type="checkbox" id="app_microwave" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
-                  <span class="font-semibold text-slate-800 text-sm">Over-the-Range Microwave</span>
+                  <span class="font-semibold text-slate-800 text-sm">Microwave (Over-The-Range)</span>
                 </label>
                 <div class="flex items-center gap-1.5">
                   <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_microwave" value="329" class="w-20 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <input type="number" id="price_microwave" placeholder="e.g. 329" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
                 </div>
               </div>
             </div>
@@ -215,7 +191,7 @@
                 </label>
                 <div class="flex items-center gap-1.5">
                   <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_refrigerator" value="999" class="w-20 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <input type="number" id="price_refrigerator" placeholder="e.g. 999" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
                 </div>
               </div>
             </div>
@@ -223,7 +199,7 @@
           </div>
         </section>
 
-        <!-- 2. INSTALLATION ACCESSORIES & SCOPE -->
+        <!-- 2. INSTALLATION ACCESSORIES & SCOPE (Automated based on selected appliances) -->
         <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-4">
           <div class="flex items-center justify-between pb-2 border-b border-slate-100">
             <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
@@ -236,73 +212,100 @@
           <div class="space-y-3">
             <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
               <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_washer_hookup" checked class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Washer Hookup & Braided Hoses
+                <input type="checkbox" id="opt_washer_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+                Washer Hookup & Installation Materials
               </span>
-              <span class="text-slate-400 font-medium">Hoses & Labor</span>
+              <span class="text-slate-400 font-medium">Labor & Materials</span>
             </label>
 
             <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
               <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_dryer_hookup" checked class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Dryer Hookup, Vent Duct & Cord
+                <input type="checkbox" id="opt_dryer_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+                Dryer Hookup & Installation Materials
               </span>
-              <span class="text-slate-400 font-medium">Cord, Vent & Labor</span>
+              <span class="text-slate-400 font-medium">Labor & Materials</span>
             </label>
 
             <label id="opt_stacking_wrapper" class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
               <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_stacking" checked class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Stacking Bracket Kit & Stacking Labor
+                <input type="checkbox" id="opt_stacking" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+                Stacking Labor & Kit
               </span>
-              <span class="text-slate-400 font-medium">Kit & Lifting</span>
+              <span class="text-slate-400 font-medium">Labor & Materials</span>
             </label>
 
             <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
               <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_drain_pan" checked class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Washer Low-Profile Floor Drain Pan
+                <input type="checkbox" id="opt_drain_pan" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+                Floor Drain Pan (Washer)
               </span>
-              <span class="text-slate-400 font-medium">Material only</span>
+              <span class="text-slate-400 font-medium">Material Only</span>
             </label>
 
             <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
               <span class="font-medium text-slate-700 flex items-center gap-2">
                 <input type="checkbox" id="opt_dw_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Dishwasher Install Kit & Hardwire Hookup
+                Dishwasher Hookup & Installation Materials
               </span>
-              <span class="text-slate-400 font-medium">Kit & Plumbing</span>
+              <span class="text-slate-400 font-medium">Labor & Materials</span>
             </label>
 
             <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
               <span class="font-medium text-slate-700 flex items-center gap-2">
                 <input type="checkbox" id="opt_micro_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Microwave Wall/Cabinet Mounting
+                Microwave Installation
               </span>
-              <span class="text-slate-400 font-medium">Bracket & Labor</span>
+              <span class="text-slate-400 font-medium">Labor & Materials</span>
             </label>
 
             <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
               <span class="font-medium text-slate-700 flex items-center gap-2">
                 <input type="checkbox" id="opt_fridge_water" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Refrigerator Ice Maker Line Connection
+                Refrigerator Hookup & Installation Materials
               </span>
-              <span class="text-slate-400 font-medium">Line & Labor</span>
+              <span class="text-slate-400 font-medium">Labor & Materials</span>
             </label>
 
             <!-- Haul Away Counter -->
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
               <div>
-                <span class="text-xs font-semibold text-slate-800 block">Old Appliance Haul Away</span>
+                <span class="text-xs font-semibold text-slate-800 block">Haul Away</span>
                 <span class="text-[11px] text-slate-500">Recycling and removal</span>
               </div>
               <div class="flex items-center gap-2">
-                <button type="button" id="btn_haul_minus" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center justify-center transition-colors">-</button>
+                <button type="button" id="btn_haul_minus" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center justify-center transition-colors cursor-pointer">-</button>
                 <span id="haulAwayCountDisplay" class="w-6 text-center font-bold text-sm text-slate-800">0</span>
-                <button type="button" id="btn_haul_plus" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center justify-center transition-colors">+</button>
+                <button type="button" id="btn_haul_plus" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center justify-center transition-colors cursor-pointer">+</button>
               </div>
             </div>
           </div>
+        </section>
+
+        <!-- 3. DIRECT TRADE QUOTE INPUT: GRAND APPLIANCE (QUOTED) AT BOTTOM -->
+        <section class="bg-gradient-to-br from-teal-50 to-emerald-50/50 rounded-2xl shadow-xs border-2 border-teal-500/80 p-5 space-y-4">
+          <div class="flex items-center justify-between pb-2 border-b border-teal-200/80">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-teal-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-teal-600"></span>
+              3. Grand Appliance (Quoted)
+            </h2>
+            <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-teal-600 text-white">YOUR ACTUAL COST</span>
+          </div>
+
+          <p class="text-xs text-teal-900 leading-relaxed">
+            Enter the direct trade estimate provided by your Grand Appliance rep. This is your true cost basis for calculating maximum profit margin against the client quote.
+          </p>
+
+          <div>
+            <label class="block text-xs font-semibold text-teal-900 mb-1">Total Quoted Amount from Grand Rep ($)</label>
+            <div class="relative">
+              <span class="absolute left-3 top-2.5 text-teal-700 font-bold text-sm">$</span>
+              <input type="number" id="grandQuotedTotal" placeholder="0" step="1" class="w-full pl-7 pr-3 py-2 text-base font-bold text-teal-950 bg-white rounded-xl border border-teal-300 focus:ring-2 focus:ring-teal-600 focus:outline-hidden">
+            </div>
+          </div>
+
+          <button type="button" id="btn_autofill_grand" class="w-full py-1.5 px-3 bg-white hover:bg-teal-100/60 border border-teal-300 text-teal-800 rounded-lg text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+            <span>⚡ Populate from Grand Web Model (-10% Trade Estimate)</span>
+          </button>
         </section>
 
       </div>
@@ -334,10 +337,10 @@
                 <span class="text-xs text-emerald-400 font-bold" id="targetMarkupDisplay">10%</span>
               </div>
               <div class="flex items-center gap-1.5">
-                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-slate-600 hover:bg-slate-700 text-slate-200" data-val="8">8%</button>
-                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-emerald-500 bg-emerald-500/20 text-emerald-300" data-val="10">10%</button>
-                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-slate-600 hover:bg-slate-700 text-slate-200" data-val="12">12%</button>
-                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-slate-600 hover:bg-slate-700 text-slate-200" data-val="15">15%</button>
+                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-slate-600 hover:bg-slate-700 text-slate-200 cursor-pointer" data-val="8">8%</button>
+                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-emerald-500 bg-emerald-500/20 text-emerald-300 cursor-pointer" data-val="10">10%</button>
+                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-slate-600 hover:bg-slate-700 text-slate-200 cursor-pointer" data-val="12">12%</button>
+                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-slate-600 hover:bg-slate-700 text-slate-200 cursor-pointer" data-val="15">15%</button>
                 <input type="number" id="customMarkupInput" value="10" step="0.5" class="w-14 px-1.5 py-1 text-xs font-bold text-center rounded-lg bg-slate-900 border border-slate-600 text-white focus:outline-hidden focus:border-emerald-500">
               </div>
             </div>
@@ -500,7 +503,7 @@
                 <tr class="hover:bg-slate-50/80 transition-colors">
                   <td class="py-2.5 px-3">
                     <span class="font-semibold text-slate-900 block">Appliance Equipment</span>
-                    <span class="text-[10px] text-slate-400" id="tableSelectedAppsLabel">2 appliances selected</span>
+                    <span class="text-[10px] text-slate-400" id="tableSelectedAppsLabel">0 appliances selected</span>
                   </td>
                   <td class="py-2.5 px-3 text-right font-medium" id="row_equip_hd">$0.00</td>
                   <td class="py-2.5 px-3 text-right font-medium" id="row_equip_lowes">$0.00</td>
@@ -619,6 +622,115 @@
     const serviceFeeAmountInput = document.getElementById('serviceFeeAmount');
     const includeServiceFeeCheckbox = document.getElementById('includeServiceFee');
     const haulAwayDisplay = document.getElementById('haulAwayCountDisplay');
+    const locationCountyBadge = document.getElementById('locationCountyBadge');
+
+    // Central Indiana & Regional ZIP-to-County lookup
+    const zipCountyMap = {
+      // Marion County (Indianapolis)
+      '46201': { city: 'Indianapolis', county: 'Marion County' },
+      '46202': { city: 'Indianapolis', county: 'Marion County' },
+      '46203': { city: 'Indianapolis', county: 'Marion County' },
+      '46204': { city: 'Indianapolis', county: 'Marion County' },
+      '46205': { city: 'Indianapolis', county: 'Marion County' },
+      '46208': { city: 'Indianapolis', county: 'Marion County' },
+      '46214': { city: 'Indianapolis', county: 'Marion County' },
+      '46216': { city: 'Indianapolis', county: 'Marion County' },
+      '46217': { city: 'Indianapolis', county: 'Marion County' },
+      '46218': { city: 'Indianapolis', county: 'Marion County' },
+      '46219': { city: 'Indianapolis', county: 'Marion County' },
+      '46220': { city: 'Indianapolis', county: 'Marion County' },
+      '46221': { city: 'Indianapolis', county: 'Marion County' },
+      '46222': { city: 'Indianapolis', county: 'Marion County' },
+      '46224': { city: 'Speedway', county: 'Marion County' },
+      '46225': { city: 'Indianapolis', county: 'Marion County' },
+      '46226': { city: 'Indianapolis', county: 'Marion County' },
+      '46227': { city: 'Indianapolis', county: 'Marion County' },
+      '46228': { city: 'Indianapolis', county: 'Marion County' },
+      '46229': { city: 'Indianapolis', county: 'Marion County' },
+      '46231': { city: 'Indianapolis', county: 'Marion County' },
+      '46234': { city: 'Indianapolis', county: 'Marion County' },
+      '46235': { city: 'Indianapolis', county: 'Marion County' },
+      '46236': { city: 'Indianapolis', county: 'Marion County' },
+      '46237': { city: 'Indianapolis', county: 'Marion County' },
+      '46239': { city: 'Indianapolis', county: 'Marion County' },
+      '46240': { city: 'Indianapolis', county: 'Marion County' },
+      '46241': { city: 'Indianapolis', county: 'Marion County' },
+      '46250': { city: 'Indianapolis', county: 'Marion County' },
+      '46254': { city: 'Indianapolis', county: 'Marion County' },
+      '46256': { city: 'Indianapolis', county: 'Marion County' },
+      '46259': { city: 'Indianapolis', county: 'Marion County' },
+      '46260': { city: 'Indianapolis', county: 'Marion County' },
+      '46268': { city: 'Indianapolis', county: 'Marion County' },
+      '46278': { city: 'Indianapolis', county: 'Marion County' },
+
+      // Hamilton County (Carmel, Fishers, Noblesville, Westfield)
+      '46032': { city: 'Carmel', county: 'Hamilton County' },
+      '46033': { city: 'Carmel', county: 'Hamilton County' },
+      '46037': { city: 'Fishers', county: 'Hamilton County' },
+      '46038': { city: 'Fishers', county: 'Hamilton County' },
+      '46060': { city: 'Noblesville', county: 'Hamilton County' },
+      '46062': { city: 'Noblesville', county: 'Hamilton County' },
+      '46074': { city: 'Westfield', county: 'Hamilton County' },
+      '46034': { city: 'Cicero', county: 'Hamilton County' },
+
+      // Hendricks County (Avon, Brownsburg, Plainfield, Danville)
+      '46123': { city: 'Avon', county: 'Hendricks County' },
+      '46112': { city: 'Brownsburg', county: 'Hendricks County' },
+      '46168': { city: 'Plainfield', county: 'Hendricks County' },
+      '46122': { city: 'Danville', county: 'Hendricks County' },
+
+      // Johnson County (Greenwood, Franklin)
+      '46142': { city: 'Greenwood', county: 'Johnson County' },
+      '46143': { city: 'Greenwood', county: 'Johnson County' },
+      '46131': { city: 'Franklin', county: 'Johnson County' },
+      '46184': { city: 'New Whiteland', county: 'Johnson County' },
+
+      // Boone County (Zionsville, Lebanon)
+      '46077': { city: 'Zionsville', county: 'Boone County' },
+      '46052': { city: 'Lebanon', county: 'Boone County' },
+
+      // Hancock County (Greenfield, McCordsville)
+      '46140': { city: 'Greenfield', county: 'Hancock County' },
+      '46055': { city: 'McCordsville', county: 'Hancock County' },
+
+      // Morgan County (Mooresville, Martinsville)
+      '46158': { city: 'Mooresville', county: 'Morgan County' },
+      '46151': { city: 'Martinsville', county: 'Morgan County' },
+
+      // Shelby County (Shelbyville)
+      '46176': { city: 'Shelbyville', county: 'Shelby County' },
+
+      // Monroe County (Bloomington)
+      '47401': { city: 'Bloomington', county: 'Monroe County' },
+      '47403': { city: 'Bloomington', county: 'Monroe County' },
+      '47404': { city: 'Bloomington', county: 'Monroe County' },
+      '47408': { city: 'Bloomington', county: 'Monroe County' },
+
+      // Allen County (Fort Wayne)
+      '46802': { city: 'Fort Wayne', county: 'Allen County' },
+      '46804': { city: 'Fort Wayne', county: 'Allen County' },
+      '46805': { city: 'Fort Wayne', county: 'Allen County' },
+      '46815': { city: 'Fort Wayne', county: 'Allen County' },
+
+      // St. Joseph County (South Bend)
+      '46601': { city: 'South Bend', county: 'St. Joseph County' },
+      '46614': { city: 'South Bend', county: 'St. Joseph County' }
+    };
+
+    function updateLocationBadge(zip) {
+      if (!locationCountyBadge) return;
+      const cleanZip = String(zip).trim();
+      const match = zipCountyMap[cleanZip];
+      if (match) {
+        locationCountyBadge.textContent = `${match.city} (${match.county})`;
+      } else if (cleanZip.startsWith('46') || cleanZip.startsWith('47')) {
+        locationCountyBadge.textContent = `Indiana (ZIP: ${cleanZip})`;
+      } else if (cleanZip.length === 5) {
+        locationCountyBadge.textContent = `Regional Area (ZIP: ${cleanZip})`;
+      } else {
+        locationCountyBadge.textContent = `Indianapolis (Marion County)`;
+      }
+    }
 
     // Appliances Checkboxes & Inputs
     const appWasher = document.getElementById('app_washer');
@@ -732,72 +844,110 @@
       }
     }
 
-    // Auto-check DW install kit when DW is checked; coordinate Admin fee uncheck
-    if (appDishwasher) {
-      appDishwasher.addEventListener('change', () => {
-        if (appDishwasher.checked && optDWHookup) {
-          optDWHookup.checked = true;
-        }
-        updateAdminFeeOnSpecialApplianceChange();
-        recalculate();
-      });
-    }
+    // --- INTUITIVE AUTOMATION OF KITS & SERVICES ---
 
-    // Auto-enable hookup and auto-uncheck Admin fee when Microwave is checked
-    if (appMicrowave) {
-      appMicrowave.addEventListener('change', () => {
-        if (appMicrowave.checked && optMicroHookup) {
-          optMicroHookup.checked = true;
-        }
-        updateAdminFeeOnSpecialApplianceChange();
-        recalculate();
-      });
-    }
-
-    // Auto-enable waterline and auto-uncheck Admin fee when Refrigerator is checked
-    if (appRefrigerator) {
-      appRefrigerator.addEventListener('change', () => {
-        if (appRefrigerator.checked && optFridgeWater) {
-          optFridgeWater.checked = true;
-        }
-        updateAdminFeeOnSpecialApplianceChange();
-        recalculate();
-      });
-    }
-
-    // Auto-uncheck Admin fee when Refrigerator Ice Maker Line Connection option is toggled directly
-    if (optFridgeWater) {
-      optFridgeWater.addEventListener('change', () => {
-        updateAdminFeeOnSpecialApplianceChange();
-        recalculate();
-      });
-    }
-
-    // Mutual exclusivity handler between separate washer/dryer and combo unit
-    if (appCombo) {
-      appCombo.addEventListener('change', () => {
-        if (appCombo.checked) {
-          if (appWasher) appWasher.checked = false;
-          if (appDryer) appDryer.checked = false;
-        }
-        recalculate();
-      });
-    }
-
+    // Washer checked/unchecked
     if (appWasher) {
       appWasher.addEventListener('change', () => {
         if (appWasher.checked && appCombo && appCombo.checked) {
           appCombo.checked = false;
         }
+        if (optWasherHookup) {
+          optWasherHookup.checked = appWasher.checked || (appCombo && appCombo.checked);
+        }
+        if (!appWasher.checked && (!appCombo || !appCombo.checked) && optDrainPan) {
+          optDrainPan.checked = false;
+        }
+        if (optStacking) {
+          optStacking.checked = (appWasher.checked && appDryer && appDryer.checked);
+        }
         recalculate();
       });
     }
 
+    // Dryer checked/unchecked
     if (appDryer) {
       appDryer.addEventListener('change', () => {
-        if (appDryer.checked && appCombo && appCombo.checked) {
-          appCombo.checked = false;
+        if (appDryer.checked) {
+          if (appCombo && appCombo.checked) {
+            appCombo.checked = false;
+          }
+          const dryerRadio = document.querySelector('input[name="dryerType"]:checked');
+          if (!dryerRadio) {
+            const electricRadio = document.querySelector('input[name="dryerType"][value="electric"]');
+            if (electricRadio) electricRadio.checked = true;
+          }
+        } else {
+          document.querySelectorAll('input[name="dryerType"]').forEach(r => r.checked = false);
         }
+        if (optDryerHookup) {
+          optDryerHookup.checked = appDryer.checked || (appCombo && appCombo.checked);
+        }
+        if (optStacking) {
+          optStacking.checked = (appWasher && appWasher.checked && appDryer.checked);
+        }
+        recalculate();
+      });
+    }
+
+    // Stacked Combo checked/unchecked
+    if (appCombo) {
+      appCombo.addEventListener('change', () => {
+        if (appCombo.checked) {
+          if (appWasher) appWasher.checked = false;
+          if (appDryer) {
+            appDryer.checked = false;
+            document.querySelectorAll('input[name="dryerType"]').forEach(r => r.checked = false);
+          }
+          if (optWasherHookup) optWasherHookup.checked = true;
+          if (optDryerHookup) optDryerHookup.checked = true;
+          if (optStacking) optStacking.checked = false;
+        } else {
+          if (optWasherHookup) optWasherHookup.checked = false;
+          if (optDryerHookup) optDryerHookup.checked = false;
+          if (optDrainPan) optDrainPan.checked = false;
+        }
+        recalculate();
+      });
+    }
+
+    // Dishwasher checked/unchecked
+    if (appDishwasher) {
+      appDishwasher.addEventListener('change', () => {
+        if (optDWHookup) {
+          optDWHookup.checked = appDishwasher.checked;
+        }
+        updateAdminFeeOnSpecialApplianceChange();
+        recalculate();
+      });
+    }
+
+    // Microwave checked/unchecked
+    if (appMicrowave) {
+      appMicrowave.addEventListener('change', () => {
+        if (optMicroHookup) {
+          optMicroHookup.checked = appMicrowave.checked;
+        }
+        updateAdminFeeOnSpecialApplianceChange();
+        recalculate();
+      });
+    }
+
+    // Refrigerator checked/unchecked
+    if (appRefrigerator) {
+      appRefrigerator.addEventListener('change', () => {
+        if (optFridgeWater) {
+          optFridgeWater.checked = appRefrigerator.checked;
+        }
+        updateAdminFeeOnSpecialApplianceChange();
+        recalculate();
+      });
+    }
+
+    // Refrigerator Waterline checkbox clicked directly
+    if (optFridgeWater) {
+      optFridgeWater.addEventListener('change', () => {
+        updateAdminFeeOnSpecialApplianceChange();
         recalculate();
       });
     }
@@ -877,7 +1027,6 @@
       const isMicroOnly = hasMicrowave && (selectedAppCount === 1);
 
       // --- MODEL A: HOME DEPOT ---
-      // Standard: Free delivery over $396. Microwave order has $39 delivery fee.
       let hdDelivery = 0.00;
       if (selectedAppCount > 0) {
         if (isMicroOnly) {
@@ -890,7 +1039,7 @@
       let hdLabor = 0;
       if (doStacking) hdLabor += 60.00;
       if (doDWHookup) hdLabor += 169.00;
-      if (doMicroHookup) hdLabor += 139.00; // Calibrated: $139 OTR microwave install
+      if (doMicroHookup) hdLabor += 139.00;
       if (doFridgeWater) hdLabor += 19.99;
 
       let hdParts = 0;
@@ -904,13 +1053,12 @@
       if (doDWHookup) hdParts += 29.98;
       if (doFridgeWater) hdParts += 27.98;
 
-      const hdHaul = haulAwayCount * 50.00; // $50 haul away per unit
+      const hdHaul = haulAwayCount * 50.00;
       const hdTaxable = equipSubtotal + hdParts;
       const hdTax = hdTaxable * taxRate;
       const hdTotal = equipSubtotal + hdDelivery + hdLabor + hdParts + hdHaul + hdTax;
 
       // --- MODEL B: LOWE'S ---
-      // Free delivery on microwave orders ($0).
       let lowesDelivery = 0.00;
       if (selectedAppCount > 0 && !hasMicrowave && equipSubtotal < 396) {
         lowesDelivery = 59.00;
@@ -919,10 +1067,7 @@
       let lowesLabor = 0;
       if (doStacking) lowesLabor += 65.00;
       if (doDWHookup) lowesLabor += 179.00;
-      // Lowe's microwave install: $149 base. If haul-away is requested for microwave, bundle is $199 ($149 labor + $50 haul)
-      if (doMicroHookup) {
-        lowesLabor += 149.00;
-      }
+      if (doMicroHookup) lowesLabor += 149.00;
       if (doFridgeWater) lowesLabor += 24.99;
 
       let lowesParts = 0;
@@ -936,7 +1081,6 @@
       if (doDWHookup) lowesParts += 32.98;
       if (doFridgeWater) lowesParts += 29.98;
 
-      // Lowe's: $50 per unit haul away ($149 labor + $50 haul = $199 total bundle for microwave with haul away)
       const lowesHaul = haulAwayCount * 50.00;
       const lowesTaxable = equipSubtotal + lowesParts;
       const lowesTax = lowesTaxable * taxRate;
@@ -999,7 +1143,10 @@
       // Check if dishwasher is the ONLY item selected
       const isDWOnly = hasDishwasher && (selectedAppCount === 1);
 
-      if (isDWOnly && useDWFlatRate) {
+      if (selectedAppCount === 0) {
+        clientFinalQuote = 0;
+        formulaNote = 'No appliances selected';
+      } else if (isDWOnly && useDWFlatRate) {
         if (feeTiming === 'before') {
           clientFinalQuote = Math.round((selectedDWFlatRate + adminFee) / 11) * 11;
           const factor = Math.round(clientFinalQuote / 11);
@@ -1010,7 +1157,6 @@
           formulaNote = `(Flat Tier $${selectedDWFlatRate} [11×${factor}] + $${adminFee} fee = $${clientFinalQuote.toLocaleString()})`;
         }
       } else if (useDWFlatRate) {
-        // Multi-appliance bundle where Dishwasher has a locked flat rate
         const nonDWEnergyRatio = (equipSubtotal > 0 && dwEquipCost < equipSubtotal) ? (equipSubtotal - dwEquipCost) / equipSubtotal : 0.75;
         const nonDWBenchmark = weightedMarketBenchmark * nonDWEnergyRatio;
         const markupRatio = 1 + (targetMarkupPct / 100);
@@ -1029,7 +1175,6 @@
           formulaNote = `(Base $${(nonDWBillable + selectedDWFlatRate).toLocaleString()} [11×${baseFactor}] + $${adminFee} fee = $${clientFinalQuote.toLocaleString()})`;
         }
       } else {
-        // Standard formula across all equipment
         const markupRatio = 1 + (targetMarkupPct / 100);
         const rawTargetUnrounded = weightedMarketBenchmark * markupRatio;
 
@@ -1047,8 +1192,8 @@
       }
 
       // Net Profit & Margins against Quoted Cost Basis
-      const costBasis = grandQuotedTotal > 0 ? grandQuotedTotal : grandWebTotal;
-      const netProfit = clientFinalQuote - costBasis;
+      const costBasis = grandQuotedTotal > 0 ? grandQuotedTotal : (selectedAppCount > 0 ? grandWebTotal : 0);
+      const netProfit = clientFinalQuote > 0 ? (clientFinalQuote - costBasis) : 0;
       const marginPct = clientFinalQuote > 0 ? (netProfit / clientFinalQuote) * 100 : 0;
       const varianceVsMarket = weightedMarketBenchmark > 0 ? ((clientFinalQuote - weightedMarketBenchmark) / weightedMarketBenchmark) * 100 : 0;
 
@@ -1062,16 +1207,16 @@
       setTxt('factor11FormulaPreview', formulaNote);
       setTxt('clientNetProfitDisplay', fmt(netProfit));
       setTxt('clientMarginPctDisplay', `${marginPct.toFixed(1)}% PM Margin`);
-      setTxt('clientMarketBenchmarkDisplay', fmt(weightedMarketBenchmark));
+      setTxt('clientMarketBenchmarkDisplay', fmt(selectedAppCount > 0 ? weightedMarketBenchmark : 0));
       setTxt('clientBasisDisplay', fmt(costBasis));
       setTxt('clientVarianceDisplay', `${varianceVsMarket >= 0 ? '+' : ''}${varianceVsMarket.toFixed(1)}% vs Market`);
       setTxt('targetMarkupDisplay', `${targetMarkupPct.toFixed(1)}%`);
 
       // Render Summary Cards
       setTxt('summary_total_grand_quoted', fmt(grandQuotedTotal));
-      setTxt('summary_total_grand', fmt(grandWebTotal));
-      setTxt('summary_total_hd', fmt(hdTotal));
-      setTxt('summary_total_lowes', fmt(lowesTotal));
+      setTxt('summary_total_grand', fmt(selectedAppCount > 0 ? grandWebTotal : 0));
+      setTxt('summary_total_hd', fmt(selectedAppCount > 0 ? hdTotal : 0));
+      setTxt('summary_total_lowes', fmt(selectedAppCount > 0 ? lowesTotal : 0));
 
       // Render Table Data (4 Columns)
       setTxt('tableSelectedAppsLabel', `${selectedAppCount} unit(s) selected`);
@@ -1102,9 +1247,9 @@
       setTxt('row_tax_lowes', fmt(lowesTax));
       setTxt('row_tax_grand', fmt(grandTax));
 
-      setTxt('row_total_hd', fmt(hdTotal));
-      setTxt('row_total_lowes', fmt(lowesTotal));
-      setTxt('row_total_grand', fmt(grandWebTotal));
+      setTxt('row_total_hd', fmt(selectedAppCount > 0 ? hdTotal : 0));
+      setTxt('row_total_lowes', fmt(selectedAppCount > 0 ? lowesTotal : 0));
+      setTxt('row_total_grand', fmt(selectedAppCount > 0 ? grandWebTotal : 0));
       setTxt('row_total_quoted', fmt(grandQuotedTotal));
     }
 
@@ -1165,6 +1310,30 @@
       });
     }
 
+    // Update Location & Tax Button
+    const btnUpdateLocation = document.getElementById('btn_update_location');
+    if (btnUpdateLocation) {
+      btnUpdateLocation.addEventListener('click', () => {
+        const zip = zipInput ? zipInput.value.trim() : '46208';
+        const tax = taxRateInput ? taxRateInput.value : '7.0';
+        updateLocationBadge(zip);
+        recalculate();
+        const match = zipCountyMap[zip];
+        const countyName = match ? `${match.city} (${match.county})` : `ZIP ${zip}`;
+        showToast(`Updated Location: ${countyName} & ${tax}% Sales Tax applied!`);
+      });
+    }
+
+    // Also update on Enter key in zip code input
+    if (zipInput) {
+      zipInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          if (btnUpdateLocation) btnUpdateLocation.click();
+        }
+      });
+    }
+
     // Autofill Helper for Grand Quoted
     const btnAutofill = document.getElementById('btn_autofill_grand');
     if (btnAutofill) {
@@ -1192,7 +1361,7 @@
 
         const items = [];
         if (appCombo && appCombo.checked) {
-          items.push('• Stacked Laundry Center (All-in-One 27" Electric Vented)');
+          items.push('• Stacked Laundry Center');
         } else {
           if (appWasher && appWasher.checked) items.push('• High-Efficiency Front-Load Washing Machine');
           if (appDryer && appDryer.checked) items.push(`• Large Capacity Clothes Dryer (${isGasDryer ? 'Gas' : 'Electric'})`);
@@ -1200,26 +1369,27 @@
         if (appDishwasher && appDishwasher.checked) {
           const dwCost = parseFloat(priceDishwasher ? priceDishwasher.value : 0) || 0;
           const isFlat = dwUseFlatRateCheckbox && dwUseFlatRateCheckbox.checked;
-          items.push(`• Built-in Dishwasher${isFlat ? ` (Turnkey Tier: $${selectedDWFlatRate} for $${dwCost} unit)` : ''}`);
+          items.push(`• Dishwasher (Built-In)${isFlat ? ` (Turnkey Tier: $${selectedDWFlatRate} for $${dwCost} unit)` : ''}`);
         }
-        if (appMicrowave && appMicrowave.checked) items.push('• Over-the-Range Microwave');
+        if (appMicrowave && appMicrowave.checked) items.push('• Microwave (Over-The-Range)');
         if (appRefrigerator && appRefrigerator.checked) items.push('• Refrigerator');
 
         const services = [];
         services.push('• Professional inside delivery, placement, and unboxing');
-        if (optWasherHookup && optWasherHookup.checked) services.push('• Commercial-grade braided stainless steel washer fill hoses');
-        if (optDryerHookup && optDryerHookup.checked) services.push('• Semi-rigid metal dryer exhaust duct kit & heavy-duty appliance power cord');
-        if (optStacking && optStacking.checked && (!appCombo || !appCombo.checked)) services.push('• Manufacturer stacking bracket hardware kit & vertical mounting labor');
-        if (optDrainPan && optDrainPan.checked) services.push('• Low-profile floor drain overflow pan');
-        if (optDWHookup && optDWHookup.checked) services.push('• Dishwasher plumbing install kit & dedicated electrical connection');
-        if (optMicroHookup && optMicroHookup.checked) services.push('• Microwave wall mounting bracket & ventilation connection');
-        if (optFridgeWater && optFridgeWater.checked) services.push('• PEX/Copper ice maker water line connection');
-        if (haulAwayCount > 0) services.push(`• Safe disconnect, removal, and EPA-compliant recycling of ${haulAwayCount} existing appliance(s)`);
+        if (optWasherHookup && optWasherHookup.checked) services.push('• Washer Hookup & Installation Materials');
+        if (optDryerHookup && optDryerHookup.checked) services.push('• Dryer Hookup & Installation Materials');
+        if (optStacking && optStacking.checked && (!appCombo || !appCombo.checked)) services.push('• Stacking Labor & Kit');
+        if (optDrainPan && optDrainPan.checked) services.push('• Floor Drain Pan (Washer)');
+        if (optDWHookup && optDWHookup.checked) services.push('• Dishwasher Hookup & Installation Materials');
+        if (optMicroHookup && optMicroHookup.checked) services.push('• Microwave Installation');
+        if (optFridgeWater && optFridgeWater.checked) services.push('• Refrigerator Hookup & Installation Materials');
+        if (haulAwayCount > 0) services.push(`• Haul Away of ${haulAwayCount} existing appliance(s)`);
         services.push('• Comprehensive operational inspection and multi-cycle leak/vent check');
 
+        const locText = locationCountyBadge ? locationCountyBadge.textContent : `Indianapolis, IN ${zip}`;
         const ownerQuoteText =
 `APPLIANCE REPLACEMENT ESTIMATE & PROPOSAL
-Property Location: Indianapolis, IN ${zip}
+Property Location: ${locText} (ZIP: ${zip})
 
 SCOPE OF WORK & EQUIPMENT:
 ${items.join('\n')}
@@ -1284,9 +1454,12 @@ Please reply to this estimate to approve this work order and schedule installati
     }
 
     // Initial calculation on load
-    window.addEventListener('DOMContentLoaded', recalculate);
-    // Fallback if DOMContentLoaded has already fired
+    window.addEventListener('DOMContentLoaded', () => {
+      if (zipInput) updateLocationBadge(zipInput.value);
+      recalculate();
+    });
     if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      if (zipInput) updateLocationBadge(zipInput.value);
       recalculate();
     }
   </script>
