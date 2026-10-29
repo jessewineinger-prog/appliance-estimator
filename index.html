@@ -213,7 +213,7 @@
             <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
               <span class="font-medium text-slate-700 flex items-center gap-2">
                 <input type="checkbox" id="opt_washer_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Washer Hookup & Installation Materials
+                Washer Installation
               </span>
               <span class="text-slate-400 font-medium">Labor & Materials</span>
             </label>
@@ -221,7 +221,7 @@
             <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
               <span class="font-medium text-slate-700 flex items-center gap-2">
                 <input type="checkbox" id="opt_dryer_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Dryer Hookup & Installation Materials
+                Dryer Installation
               </span>
               <span class="text-slate-400 font-medium">Labor & Materials</span>
             </label>
@@ -236,16 +236,8 @@
 
             <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
               <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_drain_pan" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Floor Drain Pan (Washer)
-              </span>
-              <span class="text-slate-400 font-medium">Material Only</span>
-            </label>
-
-            <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
-              <span class="font-medium text-slate-700 flex items-center gap-2">
                 <input type="checkbox" id="opt_dw_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Dishwasher Hookup & Installation Materials
+                Dishwasher Installation
               </span>
               <span class="text-slate-400 font-medium">Labor & Materials</span>
             </label>
@@ -261,9 +253,17 @@
             <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
               <span class="font-medium text-slate-700 flex items-center gap-2">
                 <input type="checkbox" id="opt_fridge_water" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Refrigerator Hookup & Installation Materials
+                Refrigeration Installation
               </span>
               <span class="text-slate-400 font-medium">Labor & Materials</span>
+            </label>
+
+            <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
+              <span class="font-medium text-slate-700 flex items-center gap-2">
+                <input type="checkbox" id="opt_drain_pan" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+                Floor Drain Pan (Washer)
+              </span>
+              <span class="text-slate-400 font-medium">Material Only</span>
             </label>
 
             <!-- Haul Away Counter -->
@@ -1376,13 +1376,13 @@
 
         const services = [];
         services.push('• Professional inside delivery, placement, and unboxing');
-        if (optWasherHookup && optWasherHookup.checked) services.push('• Washer Hookup & Installation Materials');
-        if (optDryerHookup && optDryerHookup.checked) services.push('• Dryer Hookup & Installation Materials');
+        if (optWasherHookup && optWasherHookup.checked) services.push('• Washer Installation');
+        if (optDryerHookup && optDryerHookup.checked) services.push('• Dryer Installation');
         if (optStacking && optStacking.checked && (!appCombo || !appCombo.checked)) services.push('• Stacking Labor & Kit');
-        if (optDrainPan && optDrainPan.checked) services.push('• Floor Drain Pan (Washer)');
-        if (optDWHookup && optDWHookup.checked) services.push('• Dishwasher Hookup & Installation Materials');
+        if (optDWHookup && optDWHookup.checked) services.push('• Dishwasher Installation');
         if (optMicroHookup && optMicroHookup.checked) services.push('• Microwave Installation');
-        if (optFridgeWater && optFridgeWater.checked) services.push('• Refrigerator Hookup & Installation Materials');
+        if (optFridgeWater && optFridgeWater.checked) services.push('• Refrigeration Installation');
+        if (optDrainPan && optDrainPan.checked) services.push('• Floor Drain Pan (Washer)');
         if (haulAwayCount > 0) services.push(`• Haul Away of ${haulAwayCount} existing appliance(s)`);
         services.push('• Comprehensive operational inspection and multi-cycle leak/vent check');
 
