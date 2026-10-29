@@ -104,6 +104,14 @@
                   <input type="number" id="price_washer" placeholder="e.g. 799" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
                 </div>
               </div>
+              <div class="flex items-center gap-4 mt-2 pl-6">
+                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="radio" name="washerLoadType" value="front" class="text-emerald-600 focus:ring-emerald-500"> Front Load
+                </label>
+                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="radio" name="washerLoadType" value="top" class="text-emerald-600 focus:ring-emerald-500"> Top Load
+                </label>
+              </div>
               <p class="text-[11px] text-slate-500 mt-1 pl-6">Auto-selects washer installation labor & materials</p>
             </div>
 
@@ -119,13 +127,24 @@
                   <input type="number" id="price_dryer" placeholder="e.g. 799" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
                 </div>
               </div>
-              <div class="flex items-center gap-4 mt-2 pl-6">
-                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                  <input type="radio" name="dryerType" value="electric" class="text-emerald-600 focus:ring-emerald-500"> Electric
-                </label>
-                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                  <input type="radio" name="dryerType" value="gas" class="text-emerald-600 focus:ring-emerald-500"> Gas
-                </label>
+              <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 pl-6">
+                <div class="flex items-center gap-2">
+                  <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
+                    <input type="radio" name="dryerLoadType" value="front" class="text-emerald-600 focus:ring-emerald-500"> Front Load
+                  </label>
+                  <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
+                    <input type="radio" name="dryerLoadType" value="top" class="text-emerald-600 focus:ring-emerald-500"> Top Load
+                  </label>
+                </div>
+                <span class="text-slate-300 hidden sm:inline">|</span>
+                <div class="flex items-center gap-2">
+                  <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
+                    <input type="radio" name="dryerType" value="electric" class="text-emerald-600 focus:ring-emerald-500"> Electric
+                  </label>
+                  <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
+                    <input type="radio" name="dryerType" value="gas" class="text-emerald-600 focus:ring-emerald-500"> Gas
+                  </label>
+                </div>
               </div>
             </div>
 
@@ -155,6 +174,16 @@
                   <span class="text-xs text-slate-400">$</span>
                   <input type="number" id="price_dishwasher" placeholder="e.g. 349" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
                 </div>
+              </div>
+
+              <!-- Dishwasher Control Position Radios -->
+              <div class="flex items-center gap-4 pl-6">
+                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="radio" name="dwControlType" value="front" class="text-emerald-600 focus:ring-emerald-500"> Front Control
+                </label>
+                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="radio" name="dwControlType" value="top" class="text-emerald-600 focus:ring-emerald-500"> Top Control
+                </label>
               </div>
 
               <!-- Flat-Rate Tier Selector Buttons -->
@@ -928,8 +957,17 @@
     // Washer checked/unchecked
     if (appWasher) {
       appWasher.addEventListener('change', () => {
-        if (appWasher.checked && appCombo && appCombo.checked) {
-          appCombo.checked = false;
+        if (appWasher.checked) {
+          if (appCombo && appCombo.checked) {
+            appCombo.checked = false;
+          }
+          const washerRadio = document.querySelector('input[name="washerLoadType"]:checked');
+          if (!washerRadio) {
+            const frontLoadRadio = document.querySelector('input[name="washerLoadType"][value="front"]');
+            if (frontLoadRadio) frontLoadRadio.checked = true;
+          }
+        } else {
+          document.querySelectorAll('input[name="washerLoadType"]').forEach(r => r.checked = false);
         }
         if (optWasherHookup) {
           optWasherHookup.checked = appWasher.checked || (appCombo && appCombo.checked);
@@ -937,9 +975,7 @@
         if (!appWasher.checked && (!appCombo || !appCombo.checked) && optDrainPan) {
           optDrainPan.checked = false;
         }
-        if (optStacking) {
-          optStacking.checked = (appWasher.checked && appDryer && appDryer.checked);
-        }
+        evaluateStackingEligibility();
         recalculate();
       });
     }
@@ -956,36 +992,74 @@
             const electricRadio = document.querySelector('input[name="dryerType"][value="electric"]');
             if (electricRadio) electricRadio.checked = true;
           }
+          const dryerLoadRadio = document.querySelector('input[name="dryerLoadType"]:checked');
+          if (!dryerLoadRadio) {
+            const frontLoadRadio = document.querySelector('input[name="dryerLoadType"][value="front"]');
+            if (frontLoadRadio) frontLoadRadio.checked = true;
+          }
         } else {
           document.querySelectorAll('input[name="dryerType"]').forEach(r => r.checked = false);
+          document.querySelectorAll('input[name="dryerLoadType"]').forEach(r => r.checked = false);
         }
         if (optDryerHookup) {
           optDryerHookup.checked = appDryer.checked || (appCombo && appCombo.checked);
         }
-        if (optStacking) {
-          optStacking.checked = (appWasher && appWasher.checked && appDryer.checked);
-        }
+        evaluateStackingEligibility();
         recalculate();
       });
     }
+
+    // Helper to evaluate if washer & dryer are stackable (both must be active and Front Load)
+    function evaluateStackingEligibility() {
+      const hasWasher = appWasher && appWasher.checked;
+      const hasDryer = appDryer && appDryer.checked;
+      const hasCombo = appCombo && appCombo.checked;
+
+      const washerLoad = document.querySelector('input[name="washerLoadType"]:checked')?.value;
+      const dryerLoad = document.querySelector('input[name="dryerLoadType"]:checked')?.value;
+
+      const isStackable = hasWasher && hasDryer && !hasCombo && washerLoad === 'front' && dryerLoad === 'front';
+
+      if (optStacking && optStackingWrapper) {
+        if (!isStackable) {
+          optStacking.checked = false;
+          optStackingWrapper.classList.add('opacity-40', 'pointer-events-none');
+        } else {
+          optStackingWrapper.classList.remove('opacity-40', 'pointer-events-none');
+          optStacking.checked = true;
+        }
+      }
+    }
+
+    // Listen for washer/dryer load type radio changes
+    document.querySelectorAll('input[name="washerLoadType"], input[name="dryerLoadType"]').forEach(r => {
+      r.addEventListener('change', () => {
+        evaluateStackingEligibility();
+        recalculate();
+      });
+    });
 
     // Stacked Combo checked/unchecked
     if (appCombo) {
       appCombo.addEventListener('change', () => {
         if (appCombo.checked) {
-          if (appWasher) appWasher.checked = false;
+          if (appWasher) {
+            appWasher.checked = false;
+            document.querySelectorAll('input[name="washerLoadType"]').forEach(r => r.checked = false);
+          }
           if (appDryer) {
             appDryer.checked = false;
             document.querySelectorAll('input[name="dryerType"]').forEach(r => r.checked = false);
+            document.querySelectorAll('input[name="dryerLoadType"]').forEach(r => r.checked = false);
           }
           if (optWasherHookup) optWasherHookup.checked = true;
           if (optDryerHookup) optDryerHookup.checked = true;
-          if (optStacking) optStacking.checked = false;
         } else {
           if (optWasherHookup) optWasherHookup.checked = false;
           if (optDryerHookup) optDryerHookup.checked = false;
           if (optDrainPan) optDrainPan.checked = false;
         }
+        evaluateStackingEligibility();
         recalculate();
       });
     }
@@ -993,8 +1067,15 @@
     // Dishwasher checked/unchecked
     if (appDishwasher) {
       appDishwasher.addEventListener('change', () => {
-        if (optDWHookup) {
-          optDWHookup.checked = appDishwasher.checked;
+        if (appDishwasher.checked) {
+          if (optDWHookup) optDWHookup.checked = true;
+          const dwControlRadio = document.querySelector('input[name="dwControlType"]:checked');
+          if (!dwControlRadio) {
+            const frontControl = document.querySelector('input[name="dwControlType"][value="front"]');
+            if (frontControl) frontControl.checked = true;
+          }
+        } else {
+          document.querySelectorAll('input[name="dwControlType"]').forEach(r => r.checked = false);
         }
         updateAdminFeeOnSpecialApplianceChange();
         recalculate();
@@ -1036,22 +1117,15 @@
       const taxRate = (parseFloat(taxRateInput ? taxRateInput.value : 7.0) || 0) / 100;
       const isGasDryer = document.querySelector('input[name="dryerType"]:checked')?.value === 'gas';
 
-      // Mutual exclusivity & stacking logic
-      const hasCombo = appCombo && appCombo.checked;
-      if (optStacking && optStackingWrapper) {
-        if (hasCombo) {
-          optStacking.checked = false;
-          optStackingWrapper.classList.add('opacity-40', 'pointer-events-none');
-        } else {
-          optStackingWrapper.classList.remove('opacity-40', 'pointer-events-none');
-        }
-      }
+      // Evaluate stacking constraints
+      evaluateStackingEligibility();
 
       // Equipment Subtotals
       let equipSubtotal = 0;
       let selectedAppCount = 0;
       const selectedNames = [];
 
+      const hasCombo = appCombo && appCombo.checked;
       if (hasCombo) {
         const p = parseFloat(priceCombo ? priceCombo.value : 0) || 0;
         equipSubtotal += p;
@@ -1062,13 +1136,15 @@
           const p = parseFloat(priceWasher ? priceWasher.value : 0) || 0;
           equipSubtotal += p;
           selectedAppCount++;
-          selectedNames.push('Washing Machine');
+          const wLoad = document.querySelector('input[name="washerLoadType"]:checked')?.value === 'top' ? 'Top Load' : 'Front Load';
+          selectedNames.push(`${wLoad} Washing Machine`);
         }
         if (appDryer && appDryer.checked) {
           const p = parseFloat(priceDryer ? priceDryer.value : 0) || 0;
           equipSubtotal += p;
           selectedAppCount++;
-          selectedNames.push(`Clothes Dryer (${isGasDryer ? 'Gas' : 'Electric'})`);
+          const dLoad = document.querySelector('input[name="dryerLoadType"]:checked')?.value === 'top' ? 'Top Load' : 'Front Load';
+          selectedNames.push(`${dLoad} Clothes Dryer (${isGasDryer ? 'Gas' : 'Electric'})`);
         }
       }
 
@@ -1077,14 +1153,15 @@
       if (hasDishwasher) {
         equipSubtotal += dwEquipCost;
         selectedAppCount++;
-        selectedNames.push('Dishwasher (Built-In)');
+        const dwControl = document.querySelector('input[name="dwControlType"]:checked')?.value === 'top' ? 'Top Control' : 'Front Control';
+        selectedNames.push(`${dwControl} Dishwasher`);
       }
 
       if (appMicrowave && appMicrowave.checked) {
         const p = parseFloat(priceMicrowave ? priceMicrowave.value : 0) || 0;
         equipSubtotal += p;
         selectedAppCount++;
-        selectedNames.push('Microwave (Over-The-Range)');
+        selectedNames.push('Over-The-Range Microwave');
       }
       if (appRefrigerator && appRefrigerator.checked) {
         const p = parseFloat(priceRefrigerator ? priceRefrigerator.value : 0) || 0;
@@ -1094,9 +1171,13 @@
       }
 
       // Selected scopes
+      const washerLoad = document.querySelector('input[name="washerLoadType"]:checked')?.value;
+      const dryerLoad = document.querySelector('input[name="dryerLoadType"]:checked')?.value;
+      const isStackable = !hasCombo && (appWasher && appWasher.checked) && (appDryer && appDryer.checked) && washerLoad === 'front' && dryerLoad === 'front';
+
       const doWasherHookup = optWasherHookup && optWasherHookup.checked && ((appWasher && appWasher.checked) || hasCombo);
       const doDryerHookup = optDryerHookup && optDryerHookup.checked && ((appDryer && appDryer.checked) || hasCombo);
-      const doStacking = optStacking && optStacking.checked && !hasCombo && (appWasher && appWasher.checked) && (appDryer && appDryer.checked);
+      const doStacking = optStacking && optStacking.checked && isStackable;
       const doDrainPan = optDrainPan && optDrainPan.checked && ((appWasher && appWasher.checked) || hasCombo);
       const doDWHookup = optDWHookup && optDWHookup.checked && hasDishwasher;
       const doMicroHookup = optMicroHookup && optMicroHookup.checked && (appMicrowave && appMicrowave.checked);
@@ -1450,15 +1531,20 @@
         if (appCombo && appCombo.checked) {
           items.push('• Stacked Laundry Center');
         } else {
-          if (appWasher && appWasher.checked) items.push('• High-Efficiency Front-Load Washing Machine');
-          if (appDryer && appDryer.checked) items.push(`• Large Capacity Clothes Dryer (${isGasDryer ? 'Gas' : 'Electric'})`);
+          if (appWasher && appWasher.checked) {
+            const wLoad = document.querySelector('input[name="washerLoadType"]:checked')?.value === 'top' ? 'Top Load' : 'Front Load';
+            items.push(`• ${wLoad} Washing Machine`);
+          }
+          if (appDryer && appDryer.checked) {
+            const dLoad = document.querySelector('input[name="dryerLoadType"]:checked')?.value === 'top' ? 'Top Load' : 'Front Load';
+            items.push(`• ${dLoad} Clothes Dryer (${isGasDryer ? 'Gas' : 'Electric'})`);
+          }
         }
         if (appDishwasher && appDishwasher.checked) {
-          const dwCost = parseFloat(priceDishwasher ? priceDishwasher.value : 0) || 0;
-          const isFlat = dwUseFlatRateCheckbox && dwUseFlatRateCheckbox.checked;
-          items.push(`• Dishwasher (Built-In)${isFlat ? ` (Turnkey Tier: $${selectedDWFlatRate} for $${dwCost} unit)` : ''}`);
+          const dwControl = document.querySelector('input[name="dwControlType"]:checked')?.value === 'top' ? 'Top Control' : 'Front Control';
+          items.push(`• ${dwControl} Dishwasher`);
         }
-        if (appMicrowave && appMicrowave.checked) items.push('• Microwave (Over-The-Range)');
+        if (appMicrowave && appMicrowave.checked) items.push('• Over-The-Range Microwave');
         if (appRefrigerator && appRefrigerator.checked) items.push('• Refrigerator');
 
         const services = [];
