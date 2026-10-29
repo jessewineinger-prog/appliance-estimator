@@ -37,16 +37,32 @@
         </div>
 
         <!-- Location & Tax Selector -->
-        <div class="flex flex-wrap items-center gap-3 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+        <div class="flex flex-wrap items-end gap-3 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+          <div>
+            <label class="block text-[10px] font-semibold uppercase text-slate-400">Property Address</label>
+            <input type="text" id="propAddressInput" placeholder="e.g. 1420 E Washington St" class="w-48 px-2 py-1 text-sm font-semibold rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
+          </div>
+          <div>
+            <label class="block text-[10px] font-semibold uppercase text-slate-400">City</label>
+            <input type="text" id="cityInput" value="Indianapolis" class="w-28 px-2 py-1 text-sm font-semibold rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
+          </div>
+          <div>
+            <label class="block text-[10px] font-semibold uppercase text-slate-400">State</label>
+            <input type="text" id="stateInput" value="IN" maxlength="2" class="w-12 px-2 py-1 text-sm font-semibold uppercase text-center rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
+          </div>
           <div>
             <label class="block text-[10px] font-semibold uppercase text-slate-400">Zip Code</label>
-            <input type="text" id="zipCodeInput" value="46208" class="w-20 px-2 py-1 text-sm font-semibold rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
+            <input type="text" id="zipCodeInput" value="46203" class="w-20 px-2 py-1 text-sm font-semibold rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
+          </div>
+          <div>
+            <label class="block text-[10px] font-semibold uppercase text-slate-400">Task #</label>
+            <input type="text" id="taskNumberInput" placeholder="e.g. 10482" class="w-20 px-2 py-1 text-sm font-semibold rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
           </div>
           <div>
             <label class="block text-[10px] font-semibold uppercase text-slate-400">Sales Tax (%)</label>
             <input type="number" id="taxRateInput" value="7.0" step="0.1" class="w-16 px-2 py-1 text-sm font-semibold rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
           </div>
-          <div class="self-end flex items-center gap-2">
+          <div class="flex items-center gap-2">
             <button type="button" id="btn_update_location" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-lg shadow-xs transition-colors flex items-center gap-1 cursor-pointer">
               <span>↻ Update</span>
             </button>
@@ -88,7 +104,7 @@
                   <input type="number" id="price_washer" placeholder="e.g. 799" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
                 </div>
               </div>
-              <p class="text-[11px] text-slate-500 mt-1 pl-6">Auto-selects washer hookup & installation materials</p>
+              <p class="text-[11px] text-slate-500 mt-1 pl-6">Auto-selects washer installation labor & materials</p>
             </div>
 
             <!-- Dryer -->
@@ -125,7 +141,7 @@
                   <input type="number" id="price_combo" placeholder="e.g. 1549" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
                 </div>
               </div>
-              <p class="text-[11px] text-slate-500 mt-1 pl-6">Auto-selects washer & dryer hookups. Disables separate stacking kit.</p>
+              <p class="text-[11px] text-slate-500 mt-1 pl-6">Auto-selects washer & dryer installations. Disables separate stacking kit.</p>
             </div>
 
             <!-- Dishwasher (Built-In) with Established Flat-Rate Tiers -->
@@ -615,7 +631,11 @@
     let selectedDWFlatRate = 715; // default to $349 -> $715 tier
 
     // --- DOM REFERENCES ---
+    const propAddressInput = document.getElementById('propAddressInput');
+    const cityInput = document.getElementById('cityInput');
+    const stateInput = document.getElementById('stateInput');
     const zipInput = document.getElementById('zipCodeInput');
+    const taskNumberInput = document.getElementById('taskNumberInput');
     const taxRateInput = document.getElementById('taxRateInput');
     const grandQuotedInput = document.getElementById('grandQuotedTotal');
     const customMarkupInput = document.getElementById('customMarkupInput');
@@ -717,12 +737,43 @@
       '46614': { city: 'South Bend', county: 'St. Joseph County' }
     };
 
+    // City to primary Zip lookup for address parsing
+    const cityZipMap = {
+      'carmel': '46032',
+      'fishers': '46038',
+      'noblesville': '46060',
+      'westfield': '46074',
+      'cicero': '46034',
+      'avon': '46123',
+      'brownsburg': '46112',
+      'plainfield': '46168',
+      'danville': '46122',
+      'greenwood': '46142',
+      'franklin': '46131',
+      'new whiteland': '46184',
+      'zionsville': '46077',
+      'lebanon': '46052',
+      'greenfield': '46140',
+      'mccordsville': '46055',
+      'mooresville': '46158',
+      'martinsville': '46151',
+      'shelbyville': '46176',
+      'speedway': '46224',
+      'bloomington': '47401',
+      'fort wayne': '46802',
+      'south bend': '46601',
+      'indianapolis': '46203'
+    };
+
     function updateLocationBadge(zip) {
       if (!locationCountyBadge) return;
       const cleanZip = String(zip).trim();
       const match = zipCountyMap[cleanZip];
       if (match) {
         locationCountyBadge.textContent = `${match.city} (${match.county})`;
+        if (cityInput && (!cityInput.value || cleanZip !== '46203')) {
+          cityInput.value = match.city;
+        }
       } else if (cleanZip.startsWith('46') || cleanZip.startsWith('47')) {
         locationCountyBadge.textContent = `Indiana (ZIP: ${cleanZip})`;
       } else if (cleanZip.length === 5) {
@@ -730,6 +781,34 @@
       } else {
         locationCountyBadge.textContent = `Indianapolis (Marion County)`;
       }
+    }
+
+    // Auto-detect and populate from typed property address
+    if (propAddressInput) {
+      propAddressInput.addEventListener('input', () => {
+        const text = propAddressInput.value;
+        const zipMatch = text.match(/\b(4[67]\d{3})\b/);
+        if (zipMatch && zipMatch[1]) {
+          const detectedZip = zipMatch[1];
+          if (zipInput) zipInput.value = detectedZip;
+          updateLocationBadge(detectedZip);
+          const zipInfo = zipCountyMap[detectedZip];
+          if (zipInfo && cityInput) cityInput.value = zipInfo.city;
+          recalculate();
+          return;
+        }
+
+        for (const [z, info] of Object.entries(zipCountyMap)) {
+          const regex = new RegExp(`\\b${info.city}\\b`, 'i');
+          if (regex.test(text)) {
+            if (cityInput) cityInput.value = info.city;
+            if (zipInput && !zipInput.value) zipInput.value = z;
+            updateLocationBadge(z);
+            recalculate();
+            break;
+          }
+        }
+      });
     }
 
     // Appliances Checkboxes & Inputs
@@ -977,7 +1056,7 @@
         const p = parseFloat(priceCombo ? priceCombo.value : 0) || 0;
         equipSubtotal += p;
         selectedAppCount += 1;
-        selectedNames.push('Stacked Laundry Center (All-in-One 27")');
+        selectedNames.push('Stacked Laundry Center');
       } else {
         if (appWasher && appWasher.checked) {
           const p = parseFloat(priceWasher ? priceWasher.value : 0) || 0;
@@ -998,14 +1077,14 @@
       if (hasDishwasher) {
         equipSubtotal += dwEquipCost;
         selectedAppCount++;
-        selectedNames.push('Built-in Dishwasher');
+        selectedNames.push('Dishwasher (Built-In)');
       }
 
       if (appMicrowave && appMicrowave.checked) {
         const p = parseFloat(priceMicrowave ? priceMicrowave.value : 0) || 0;
         equipSubtotal += p;
         selectedAppCount++;
-        selectedNames.push('Over-the-Range Microwave');
+        selectedNames.push('Microwave (Over-The-Range)');
       }
       if (appRefrigerator && appRefrigerator.checked) {
         const p = parseFloat(priceRefrigerator ? priceRefrigerator.value : 0) || 0;
@@ -1314,25 +1393,29 @@
     const btnUpdateLocation = document.getElementById('btn_update_location');
     if (btnUpdateLocation) {
       btnUpdateLocation.addEventListener('click', () => {
-        const zip = zipInput ? zipInput.value.trim() : '46208';
+        const zip = zipInput ? zipInput.value.trim() : '46203';
+        const city = cityInput ? cityInput.value.trim() : 'Indianapolis';
+        const state = stateInput ? stateInput.value.trim().toUpperCase() : 'IN';
         const tax = taxRateInput ? taxRateInput.value : '7.0';
         updateLocationBadge(zip);
         recalculate();
         const match = zipCountyMap[zip];
-        const countyName = match ? `${match.city} (${match.county})` : `ZIP ${zip}`;
+        const countyName = match ? `${match.city} (${match.county})` : `${city}, ${state} ${zip}`;
         showToast(`Updated Location: ${countyName} & ${tax}% Sales Tax applied!`);
       });
     }
 
-    // Also update on Enter key in zip code input
-    if (zipInput) {
-      zipInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          if (btnUpdateLocation) btnUpdateLocation.click();
-        }
-      });
-    }
+    // Also update on Enter key in property inputs
+    [propAddressInput, cityInput, stateInput, zipInput, taskNumberInput].forEach(inp => {
+      if (inp) {
+        inp.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            if (btnUpdateLocation) btnUpdateLocation.click();
+          }
+        });
+      }
+    });
 
     // Autofill Helper for Grand Quoted
     const btnAutofill = document.getElementById('btn_autofill_grand');
@@ -1356,7 +1439,11 @@
       btnCopyQuoteOwner.addEventListener('click', () => {
         const clientProposalEl = document.getElementById('clientProposalTotal');
         const clientTotal = clientProposalEl ? clientProposalEl.textContent : '$0.00';
-        const zip = zipInput ? zipInput.value : '46208';
+        const zip = zipInput && zipInput.value.trim() ? zipInput.value.trim() : '46203';
+        const city = cityInput && cityInput.value.trim() ? cityInput.value.trim() : 'Indianapolis';
+        const state = stateInput && stateInput.value.trim() ? stateInput.value.trim().toUpperCase() : 'IN';
+        const address = propAddressInput ? propAddressInput.value.trim() : '';
+        const taskNum = taskNumberInput ? taskNumberInput.value.trim() : '';
         const isGasDryer = document.querySelector('input[name="dryerType"]:checked')?.value === 'gas';
 
         const items = [];
@@ -1386,10 +1473,17 @@
         if (haulAwayCount > 0) services.push(`• Haul Away of ${haulAwayCount} existing appliance(s)`);
         services.push('• Comprehensive operational inspection and multi-cycle leak/vent check');
 
-        const locText = locationCountyBadge ? locationCountyBadge.textContent : `Indianapolis, IN ${zip}`;
+        const countyMatch = zipCountyMap[zip];
+        const countyPart = countyMatch ? ` (${countyMatch.county})` : '';
+        let fullLocation = `${city}, ${state} ${zip}${countyPart}`;
+        if (address) {
+          fullLocation = `${address}, ${city}, ${state} ${zip}${countyPart}`;
+        }
+
+        const estimateHeader = taskNum ? `Estimate #: ${taskNum}\n` : '';
         const ownerQuoteText =
 `APPLIANCE REPLACEMENT ESTIMATE & PROPOSAL
-Property Location: ${locText} (ZIP: ${zip})
+${estimateHeader}Property Location: ${fullLocation}
 
 SCOPE OF WORK & EQUIPMENT:
 ${items.join('\n')}
@@ -1430,8 +1524,14 @@ Please reply to this estimate to approve this work order and schedule installati
         const netProfit = getElTxt('clientNetProfitDisplay');
         const marginPct = getElTxt('clientMarginPctDisplay');
         const zip = zipInput ? zipInput.value : '46208';
+        const rawAddress = propAddressInput ? propAddressInput.value.trim() : '';
+        const taskNum = taskNumberInput ? taskNumberInput.value.trim() : '';
+        const taskHeader = taskNum ? `Task / Estimate #: ${taskNum}\n` : '';
+        const addrHeader = rawAddress ? `Address: ${rawAddress} (ZIP: ${zip})\n` : `Location: ZIP ${zip}\n`;
 
-        const summaryText = `Appliance Installation & Margin Analysis (ZIP: ${zip}):\n` +
+        const summaryText = `Appliance Installation & Margin Analysis:\n` +
+                            taskHeader +
+                            addrHeader +
                             `• Client Proposed Total: ${clientTotal}\n` +
                             `• Weighted Market Benchmark (70% Grand | 15% HD | 15% Lowe's): ${weightedMarketAvg}\n` +
                             `-----------------------------------------\n` +
@@ -1455,11 +1555,11 @@ Please reply to this estimate to approve this work order and schedule installati
 
     // Initial calculation on load
     window.addEventListener('DOMContentLoaded', () => {
-      if (zipInput) updateLocationBadge(zipInput.value);
+      if (zipInput && zipInput.value) updateLocationBadge(zipInput.value);
       recalculate();
     });
     if (document.readyState === 'interactive' || document.readyState === 'complete') {
-      if (zipInput) updateLocationBadge(zipInput.value);
+      if (zipInput && zipInput.value) updateLocationBadge(zipInput.value);
       recalculate();
     }
   </script>
