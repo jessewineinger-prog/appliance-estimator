@@ -1329,18 +1329,18 @@
 
       // --- DYNAMIC WEIGHTED MARKET BENCHMARK RULE ---
       // If Grand (Web) turnkey is less than BOTH Home Depot and Lowe's:
-      // Weight becomes 20% Grand | 40% HD | 40% Lowe's.
+      // Weight becomes 10% Grand | 45% HD | 45% Lowe's.
       // Otherwise, defaults to 70% Grand | 15% HD | 15% Lowe's.
       const isGrandLowest = (selectedAppCount > 0) && (grandWebTotal < hdTotal) && (grandWebTotal < lowesTotal);
-      const wtGrand = isGrandLowest ? 0.20 : 0.70;
-      const wtHD = isGrandLowest ? 0.40 : 0.15;
-      const wtLowes = isGrandLowest ? 0.40 : 0.15;
+      const wtGrand = isGrandLowest ? 0.10 : 0.70;
+      const wtHD = isGrandLowest ? 0.45 : 0.15;
+      const wtLowes = isGrandLowest ? 0.45 : 0.15;
 
       const weightedMarketBenchmark = (grandWebTotal * wtGrand) + (hdTotal * wtHD) + (lowesTotal * wtLowes);
 
       // Update Weight Pill and Badges
       const weightPillText = isGrandLowest 
-        ? '⚡ 20% Grand | 40% HD | 40% Lowe\'s (Grand Under Market)' 
+        ? '⚡ 10% Grand | 45% HD | 45% Lowe\'s (Grand Under Market)' 
         : '70% Grand | 15% HD | 15% Lowe\'s';
       const weightPillEl = document.getElementById('marketWeightPill');
       if (weightPillEl) {
@@ -1364,7 +1364,7 @@
       const footnoteEl = document.getElementById('footnoteStrategyText');
       if (footnoteEl) {
         if (isGrandLowest) {
-          footnoteEl.innerHTML = `<strong>Active Dynamic Weighting:</strong> Because Grand Appliance's turnkey total ($${grandWebTotal.toFixed(2)}) is less than both The Home Depot ($${hdTotal.toFixed(2)}) and Lowe's ($${lowesTotal.toFixed(2)}), the market baseline automatically re-weights to <strong>20% Grand + 40% The Home Depot + 40% Lowe's</strong>. This prevents Grand's lower pricing from artificially deflating your client proposal while keeping the quote competitive against big-box retail.`;
+          footnoteEl.innerHTML = `<strong>Active Dynamic Weighting:</strong> Because Grand Appliance's turnkey total ($${grandWebTotal.toFixed(2)}) is less than both The Home Depot ($${hdTotal.toFixed(2)}) and Lowe's ($${lowesTotal.toFixed(2)}), the market baseline automatically re-weights to <strong>10% Grand + 45% The Home Depot + 45% Lowe's</strong>. This prevents Grand's lower pricing from artificially deflating your client proposal while keeping the quote competitive against big-box retail.`;
         } else {
           footnoteEl.innerHTML = `The benchmark baseline is weighted at <strong>70% Grand Appliance (Web) + 15% The Home Depot + 15% Lowe's</strong>. Applying your 10% premium rounded to exact multiples of 11 ensures the proposal remains audit-proof and competitive, while your direct <strong>Grand Appliance (Quoted)</strong> contractor discount maximizes gross profit.`;
         }
@@ -1375,6 +1375,10 @@
       const adminFee = includeFee ? (parseFloat(serviceFeeAmountInput ? serviceFeeAmountInput.value : 25) || 0) : 0;
       const feeTiming = document.querySelector('input[name="feeTiming"]:checked')?.value || 'before';
       const useDWFlatRate = hasDishwasher && dwUseFlatRateCheckbox && dwUseFlatRateCheckbox.checked;
+
+      // 1% price calibration when an Electric Range is being replaced
+      const isElectricRangeActive = hasRange && !isGasRange;
+      const electricRangeMultiplier = isElectricRangeActive ? 1.01 : 1.00;
 
       let clientFinalQuote = 0;
       let formulaNote = '';
@@ -1407,7 +1411,7 @@
         const nonDWEnergyRatio = (equipSubtotal > 0 && dwEquipCost < equipSubtotal) ? (equipSubtotal - dwEquipCost) / equipSubtotal : 0.75;
         const nonDWBenchmark = weightedMarketBenchmark * nonDWEnergyRatio;
         const markupRatio = 1 + (targetMarkupPct / 100);
-        const rawNonDW = nonDWBenchmark * markupRatio;
+        const rawNonDW = nonDWBenchmark * markupRatio * electricRangeMultiplier;
 
         if (feeTiming === 'before') {
           const preRound = rawNonDW + adminFee;
@@ -1423,7 +1427,7 @@
         }
       } else {
         const markupRatio = 1 + (targetMarkupPct / 100);
-        const rawTargetUnrounded = weightedMarketBenchmark * markupRatio;
+        const rawTargetUnrounded = weightedMarketBenchmark * markupRatio * electricRangeMultiplier;
 
         if (feeTiming === 'before') {
           const preRound = rawTargetUnrounded + adminFee;
