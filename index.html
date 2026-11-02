@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Appliance Installation & Pricing Estimator (Property Management)</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              DEFAULT: '#CFB991',
+              hover: '#CEB888',
+              dark: '#8C7847',
+              light: '#E2D4BA'
+            }
+          }
+        }
+      }
+    }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,13 +30,6 @@
       background-color: #000000;
       color: #f3f4f6;
     }
-    :root {
-      --gold-primary: #CFB991;
-      --gold-hover: #CEB888;
-      --gold-dark: #8C7847;
-      --gold-tint: rgba(207, 185, 145, 0.12);
-      --gold-border: rgba(207, 185, 145, 0.35);
-    }
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
       -webkit-appearance: none;
@@ -29,10 +38,6 @@
     input[type=number] {
       -moz-appearance: textfield;
     }
-    .text-gold { color: #CFB991; }
-    .bg-gold { background-color: #CFB991; }
-    .border-gold { border-color: rgba(207, 185, 145, 0.4); }
-    .border-gold-strong { border-color: #CFB991; }
   </style>
 </head>
 <body class="bg-black min-h-screen text-zinc-100 antialiased p-3 sm:p-6 lg:p-8">
@@ -229,7 +234,7 @@
               </div>
             </div>
 
-            <!-- Dishwasher (Built-In) with Flat Tiers (Moved to Bottom) -->
+            <!-- Dishwasher (Built-In) with Flat Tiers -->
             <div class="p-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-colors bg-zinc-900/60 space-y-2.5">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer">
@@ -721,7 +726,6 @@
 
     // Central Indiana & Regional ZIP-to-County lookup
     const zipCountyMap = {
-      // Marion County (Indianapolis)
       '46201': { city: 'Indianapolis', county: 'Marion County' },
       '46202': { city: 'Indianapolis', county: 'Marion County' },
       '46203': { city: 'Indianapolis', county: 'Marion County' },
@@ -757,8 +761,6 @@
       '46260': { city: 'Indianapolis', county: 'Marion County' },
       '46268': { city: 'Indianapolis', county: 'Marion County' },
       '46278': { city: 'Indianapolis', county: 'Marion County' },
-
-      // Hamilton County (Carmel, Fishers, Noblesville, Westfield)
       '46032': { city: 'Carmel', county: 'Hamilton County' },
       '46033': { city: 'Carmel', county: 'Hamilton County' },
       '46037': { city: 'Fishers', county: 'Hamilton County' },
@@ -767,47 +769,29 @@
       '46062': { city: 'Noblesville', county: 'Hamilton County' },
       '46074': { city: 'Westfield', county: 'Hamilton County' },
       '46034': { city: 'Cicero', county: 'Hamilton County' },
-
-      // Hendricks County (Avon, Brownsburg, Plainfield, Danville)
       '46123': { city: 'Avon', county: 'Hendricks County' },
       '46112': { city: 'Brownsburg', county: 'Hendricks County' },
       '46168': { city: 'Plainfield', county: 'Hendricks County' },
       '46122': { city: 'Danville', county: 'Hendricks County' },
-
-      // Johnson County (Greenwood, Franklin)
       '46142': { city: 'Greenwood', county: 'Johnson County' },
       '46143': { city: 'Greenwood', county: 'Johnson County' },
       '46131': { city: 'Franklin', county: 'Johnson County' },
       '46184': { city: 'New Whiteland', county: 'Johnson County' },
-
-      // Boone County (Zionsville, Lebanon)
       '46077': { city: 'Zionsville', county: 'Boone County' },
       '46052': { city: 'Lebanon', county: 'Boone County' },
-
-      // Hancock County (Greenfield, McCordsville)
       '46140': { city: 'Greenfield', county: 'Hancock County' },
       '46055': { city: 'McCordsville', county: 'Hancock County' },
-
-      // Morgan County (Mooresville, Martinsville)
       '46158': { city: 'Mooresville', county: 'Morgan County' },
       '46151': { city: 'Martinsville', county: 'Morgan County' },
-
-      // Shelby County (Shelbyville)
       '46176': { city: 'Shelbyville', county: 'Shelby County' },
-
-      // Monroe County (Bloomington)
       '47401': { city: 'Bloomington', county: 'Monroe County' },
       '47403': { city: 'Bloomington', county: 'Monroe County' },
       '47404': { city: 'Bloomington', county: 'Monroe County' },
       '47408': { city: 'Bloomington', county: 'Monroe County' },
-
-      // Allen County (Fort Wayne)
       '46802': { city: 'Fort Wayne', county: 'Allen County' },
       '46804': { city: 'Fort Wayne', county: 'Allen County' },
       '46805': { city: 'Fort Wayne', county: 'Allen County' },
       '46815': { city: 'Fort Wayne', county: 'Allen County' },
-
-      // St. Joseph County (South Bend)
       '46601': { city: 'South Bend', county: 'St. Joseph County' },
       '46614': { city: 'South Bend', county: 'St. Joseph County' }
     };
@@ -830,7 +814,6 @@
       }
     }
 
-    // Auto-detect and populate from typed property address
     if (propAddressInput) {
       propAddressInput.addEventListener('input', () => {
         const text = propAddressInput.value;
@@ -930,7 +913,6 @@
       });
     });
 
-    // Detect if manual dishwasher price matches a flat tier
     if (priceDishwasher) {
       priceDishwasher.addEventListener('input', () => {
         const p = parseFloat(priceDishwasher.value) || 0;
@@ -964,8 +946,6 @@
       const hasFridge = appRefrigerator && appRefrigerator.checked;
       const hasFridgeWater = optFridgeWater && optFridgeWater.checked;
 
-      // Keep Admin Service Fee checked for Ranges (Electric & Gas) to cover coordination & safety check margin;
-      // only uncheck for DW flat-rate tiers or simple plug-in items (Micro / Fridge).
       if (hasDW || hasMicro || hasFridge || hasFridgeWater) {
         includeServiceFeeCheckbox.checked = false;
       } else {
@@ -1056,7 +1036,6 @@
       });
     });
 
-    // Stacked Combo checked/unchecked
     if (appCombo) {
       appCombo.addEventListener('change', () => {
         if (appCombo.checked) {
@@ -1081,7 +1060,6 @@
       });
     }
 
-    // Dishwasher checked/unchecked
     if (appDishwasher) {
       appDishwasher.addEventListener('change', () => {
         if (appDishwasher.checked) {
@@ -1099,7 +1077,6 @@
       });
     }
 
-    // Range checked/unchecked
     if (appRange) {
       appRange.addEventListener('change', () => {
         if (appRange.checked) {
@@ -1118,14 +1095,12 @@
       });
     }
 
-    // Range type radio change
     document.querySelectorAll('input[name="rangeType"]').forEach(r => {
       r.addEventListener('change', () => {
         recalculate();
       });
     });
 
-    // Microwave checked/unchecked
     if (appMicrowave) {
       appMicrowave.addEventListener('change', () => {
         if (optMicroHookup) {
@@ -1136,7 +1111,6 @@
       });
     }
 
-    // Refrigerator checked/unchecked
     if (appRefrigerator) {
       appRefrigerator.addEventListener('change', () => {
         if (optFridgeWater) {
@@ -1147,7 +1121,6 @@
       });
     }
 
-    // Refrigerator Waterline checkbox clicked directly
     if (optFridgeWater) {
       optFridgeWater.addEventListener('change', () => {
         updateAdminFeeOnSpecialApplianceChange();
@@ -1221,7 +1194,6 @@
         selectedNames.push('Refrigerator');
       }
 
-      // Selected scopes
       const washerLoad = document.querySelector('input[name="washerLoadType"]:checked')?.value;
       const dryerLoad = document.querySelector('input[name="dryerLoadType"]:checked')?.value;
       const isStackable = !hasCombo && (appWasher && appWasher.checked) && (appDryer && appDryer.checked) && washerLoad === 'front' && dryerLoad === 'front';
@@ -1303,7 +1275,6 @@
       const lowesTotal = equipSubtotal + lowesDelivery + lowesLabor + lowesParts + lowesHaul + lowesTax;
 
       // --- MODEL C: GRAND APPLIANCE (WEB / RETAIL SCHEDULE) ---
-      // $59 delivery + $10 taxable fuel surcharge when order has appliances
       const grandBaseDelivery = selectedAppCount > 0 ? 59.00 : 0.00;
       const grandFuelSurcharge = selectedAppCount > 0 ? 10.00 : 0.00;
       const grandDelivery = grandBaseDelivery + grandFuelSurcharge;
@@ -1330,11 +1301,9 @@
       if (doStacking) grandParts += 55.00;
       if (doDrainPan) grandParts += 30.00;
       if (doDWHookup) grandParts += 29.99;
-      // Grand Appliance bundles required range parts (gas flex line or 4-prong cord) directly into installation fee
       if (doFridgeWater) grandParts += 28.00;
 
-      const grandHaul = haulAwayCount * 39.00; // $39.00 per unit haul away
-      // Fuel surcharge ($10) is taxable alongside equipment and parts
+      const grandHaul = haulAwayCount * 39.00;
       const grandTaxable = equipSubtotal + grandParts + grandFuelSurcharge;
       const grandTax = grandTaxable * taxRate;
       const grandWebTotal = equipSubtotal + grandDelivery + grandLabor + grandParts + grandHaul + grandTax;
@@ -1342,10 +1311,7 @@
       // --- MODEL D: GRAND APPLIANCE (QUOTED) ---
       const grandQuotedTotal = parseFloat(grandQuotedInput ? grandQuotedInput.value : 0) || 0;
 
-      // --- DYNAMIC WEIGHTED MARKET BENCHMARK RULE ---
-      // If Grand (Web) turnkey is less than BOTH Home Depot and Lowe's:
-      // Weight becomes 10% Grand | 45% HD | 45% Lowe's.
-      // Otherwise, defaults to 70% Grand | 15% HD | 15% Lowe's.
+      // Dynamic weighting rule: 10% Grand / 45% HD / 45% Lowe's if Grand is lowest
       const isGrandLowest = (selectedAppCount > 0) && (grandWebTotal < hdTotal) && (grandWebTotal < lowesTotal);
       const wtGrand = isGrandLowest ? 0.10 : 0.70;
       const wtHD = isGrandLowest ? 0.45 : 0.15;
@@ -1353,7 +1319,6 @@
 
       const weightedMarketBenchmark = (grandWebTotal * wtGrand) + (hdTotal * wtHD) + (lowesTotal * wtLowes);
 
-      // Update Weight Pill and Badges
       const weightPillText = isGrandLowest 
         ? '⚡ 10% Grand | 45% HD | 45% Lowe\'s (Grand Under Market)' 
         : '70% Grand | 15% HD | 15% Lowe\'s';
@@ -1385,13 +1350,12 @@
         }
       }
 
-      // --- CLIENT PRICING ENGINE (FACTOR OF 11 + DISHWASHER FLAT RATE) ---
+      // --- CLIENT PRICING ENGINE ---
       const includeFee = includeServiceFeeCheckbox ? includeServiceFeeCheckbox.checked : true;
       const adminFee = includeFee ? (parseFloat(serviceFeeAmountInput ? serviceFeeAmountInput.value : 25) || 0) : 0;
       const feeTiming = document.querySelector('input[name="feeTiming"]:checked')?.value || 'before';
       const useDWFlatRate = hasDishwasher && dwUseFlatRateCheckbox && dwUseFlatRateCheckbox.checked;
 
-      // 1% price calibration when an Electric Range is being replaced
       const isElectricRangeActive = hasRange && !isGasRange;
       const electricRangeMultiplier = isElectricRangeActive ? 1.01 : 1.00;
 
