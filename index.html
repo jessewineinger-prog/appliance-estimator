@@ -1356,9 +1356,6 @@
       const isElectricRangeActive = hasRange && !isGasRange;
       const electricRangeMultiplier = isElectricRangeActive ? 1.01 : 1.00;
 
-      // Microwave proposal calibration: ~1% reduction (0.99 multiplier)
-      const microwaveMultiplier = (appMicrowave && appMicrowave.checked) ? 0.99 : 1.00;
-
       let clientFinalQuote = 0;
       let formulaNote = '';
 
@@ -1390,7 +1387,7 @@
         const nonDWEnergyRatio = (equipSubtotal > 0 && dwEquipCost < equipSubtotal) ? (equipSubtotal - dwEquipCost) / equipSubtotal : 0.75;
         const nonDWBenchmark = weightedMarketBenchmark * nonDWEnergyRatio;
         const markupRatio = 1 + (targetMarkupPct / 100);
-        const rawNonDW = nonDWBenchmark * markupRatio * electricRangeMultiplier * microwaveMultiplier;
+        const rawNonDW = nonDWBenchmark * markupRatio * electricRangeMultiplier;
 
         if (feeTiming === 'before') {
           const preRound = rawNonDW + adminFee;
@@ -1406,7 +1403,7 @@
         }
       } else {
         const markupRatio = 1 + (targetMarkupPct / 100);
-        const rawTargetUnrounded = weightedMarketBenchmark * markupRatio * electricRangeMultiplier * microwaveMultiplier;
+        const rawTargetUnrounded = weightedMarketBenchmark * markupRatio * electricRangeMultiplier;
 
         if (feeTiming === 'before') {
           const preRound = rawTargetUnrounded + adminFee;
