@@ -9,7 +9,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background-color: #000000;
+      color: #f3f4f6;
+    }
+    :root {
+      --gold-primary: #CFB991;
+      --gold-hover: #CEB888;
+      --gold-dark: #8C7847;
+      --gold-tint: rgba(207, 185, 145, 0.12);
+      --gold-border: rgba(207, 185, 145, 0.35);
+    }
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
       -webkit-appearance: none;
@@ -18,56 +29,60 @@
     input[type=number] {
       -moz-appearance: textfield;
     }
+    .text-gold { color: #CFB991; }
+    .bg-gold { background-color: #CFB991; }
+    .border-gold { border-color: rgba(207, 185, 145, 0.4); }
+    .border-gold-strong { border-color: #CFB991; }
   </style>
 </head>
-<body class="bg-slate-100 min-h-screen text-slate-800 antialiased p-3 sm:p-6 lg:p-8">
+<body class="bg-black min-h-screen text-zinc-100 antialiased p-3 sm:p-6 lg:p-8">
 
   <div class="max-w-7xl mx-auto space-y-6">
 
     <!-- Top Header & Property Management Toolbar -->
-    <header class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 sm:p-6">
+    <header class="bg-zinc-950 rounded-2xl shadow-2xl border border-zinc-800/90 p-5 sm:p-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">PM Client Pricing Suite</span>
-            <span id="locationCountyBadge" class="text-xs text-slate-400 font-medium">Indianapolis (Marion County)</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#CFB991]/15 text-[#CFB991] border border-[#CFB991]/30">PM Client Pricing Suite</span>
+            <span id="locationCountyBadge" class="text-xs text-zinc-400 font-medium">Indianapolis (Marion County)</span>
           </div>
-          <h1 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1 tracking-tight">Appliance Replacement & Margin Estimator</h1>
-          <p class="text-sm text-slate-500 mt-0.5">Competitive market benchmark with direct trade quotes, DW flat tiers, and divisible-by-11 pricing</p>
+          <h1 class="text-xl sm:text-2xl font-bold text-white mt-1 tracking-tight">Appliance Replacement & Margin Estimator</h1>
+          <p class="text-sm text-zinc-400 mt-0.5">Competitive market benchmark with direct trade quotes, DW flat tiers, and divisible-by-11 pricing</p>
         </div>
 
         <!-- Location & Tax Selector -->
-        <div class="flex flex-wrap items-end gap-3 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+        <div class="flex flex-wrap items-end gap-3 bg-zinc-900/90 p-2.5 rounded-xl border border-zinc-800">
           <div>
-            <label class="block text-[10px] font-semibold uppercase text-slate-400">Property Address</label>
-            <input type="text" id="propAddressInput" placeholder="e.g. 1420 E Washington St" class="w-48 px-2 py-1 text-sm font-semibold rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
+            <label class="block text-[10px] font-semibold uppercase text-zinc-400">Property Address</label>
+            <input type="text" id="propAddressInput" placeholder="e.g. 1420 E Washington St" class="w-48 px-2 py-1 text-sm font-semibold rounded-lg border border-zinc-700 focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden bg-black text-white placeholder-zinc-500">
           </div>
           <div>
-            <label class="block text-[10px] font-semibold uppercase text-slate-400">City</label>
-            <input type="text" id="cityInput" value="Indianapolis" class="w-28 px-2 py-1 text-sm font-semibold rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
+            <label class="block text-[10px] font-semibold uppercase text-zinc-400">City</label>
+            <input type="text" id="cityInput" value="Indianapolis" class="w-28 px-2 py-1 text-sm font-semibold rounded-lg border border-zinc-700 focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden bg-black text-white">
           </div>
           <div>
-            <label class="block text-[10px] font-semibold uppercase text-slate-400">State</label>
-            <input type="text" id="stateInput" value="IN" maxlength="2" class="w-12 px-2 py-1 text-sm font-semibold uppercase text-center rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
+            <label class="block text-[10px] font-semibold uppercase text-zinc-400">State</label>
+            <input type="text" id="stateInput" value="IN" maxlength="2" class="w-12 px-2 py-1 text-sm font-semibold uppercase text-center rounded-lg border border-zinc-700 focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden bg-black text-white">
           </div>
           <div>
-            <label class="block text-[10px] font-semibold uppercase text-slate-400">Zip Code</label>
-            <input type="text" id="zipCodeInput" value="46203" class="w-20 px-2 py-1 text-sm font-semibold rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
+            <label class="block text-[10px] font-semibold uppercase text-zinc-400">Zip Code</label>
+            <input type="text" id="zipCodeInput" value="46203" class="w-20 px-2 py-1 text-sm font-semibold rounded-lg border border-zinc-700 focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden bg-black text-white">
           </div>
           <div>
-            <label class="block text-[10px] font-semibold uppercase text-slate-400">Task #</label>
-            <input type="text" id="taskNumberInput" placeholder="e.g. 10482" class="w-20 px-2 py-1 text-sm font-semibold rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
+            <label class="block text-[10px] font-semibold uppercase text-zinc-400">Task #</label>
+            <input type="text" id="taskNumberInput" placeholder="e.g. 10482" class="w-20 px-2 py-1 text-sm font-semibold rounded-lg border border-zinc-700 focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden bg-black text-white placeholder-zinc-500">
           </div>
           <div>
-            <label class="block text-[10px] font-semibold uppercase text-slate-400">Sales Tax (%)</label>
-            <input type="number" id="taxRateInput" value="7.0" step="0.1" class="w-16 px-2 py-1 text-sm font-semibold rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white text-slate-900">
+            <label class="block text-[10px] font-semibold uppercase text-zinc-400">Sales Tax (%)</label>
+            <input type="number" id="taxRateInput" value="7.0" step="0.1" class="w-16 px-2 py-1 text-sm font-semibold rounded-lg border border-zinc-700 focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden bg-black text-white">
           </div>
           <div class="flex items-center gap-2">
-            <button type="button" id="btn_update_location" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-lg shadow-xs transition-colors flex items-center gap-1 cursor-pointer">
+            <button type="button" id="btn_update_location" class="px-3 py-1.5 bg-[#CFB991] hover:bg-[#CEB888] text-black text-xs font-bold rounded-lg shadow-sm transition-colors flex items-center gap-1 cursor-pointer">
               <span>↻ Update</span>
             </button>
-            <span class="inline-flex items-center text-xs font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1.5 rounded-lg border border-emerald-200/80">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> IN 7% Standard
+            <span class="inline-flex items-center text-xs font-medium text-[#CFB991] bg-[#CFB991]/10 px-2.5 py-1.5 rounded-lg border border-[#CFB991]/25">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#CFB991] mr-1.5"></span> IN 7% Standard
             </span>
           </div>
         </div>
@@ -81,186 +96,186 @@
       <div class="lg:col-span-5 space-y-6">
 
         <!-- 1. APPLIANCE SELECTION -->
-        <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-4">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-            <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+        <section class="bg-zinc-950 rounded-2xl shadow-xl border border-zinc-800/90 p-5 space-y-4">
+          <div class="flex items-center justify-between pb-2 border-b border-zinc-800">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-zinc-200 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#CFB991]"></span>
               1. Appliances Being Replaced
             </h2>
-            <span class="text-xs text-slate-400 font-medium">Select all that apply</span>
+            <span class="text-xs text-zinc-400 font-medium">Select all that apply</span>
           </div>
 
           <div class="space-y-3.5">
 
             <!-- Washing Machine -->
-            <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white">
+            <div class="p-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-colors bg-zinc-900/60">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer select-none">
-                  <input type="checkbox" id="app_washer" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
-                  <span class="font-semibold text-slate-800 text-sm">Washing Machine</span>
+                  <input type="checkbox" id="app_washer" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black focus:ring-[#CFB991]">
+                  <span class="font-semibold text-zinc-100 text-sm">Washing Machine</span>
                 </label>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_washer" placeholder="e.g. 799" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <span class="text-xs text-[#CFB991] font-bold">$</span>
+                  <input type="number" id="price_washer" placeholder="e.g. 799" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-zinc-700 bg-black text-white text-right focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden">
                 </div>
               </div>
               <div class="flex items-center gap-4 mt-2 pl-6">
-                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                  <input type="radio" name="washerLoadType" value="front" class="text-emerald-600 focus:ring-emerald-500"> Front Load
+                <label class="text-xs text-zinc-300 flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="radio" name="washerLoadType" value="front" class="text-[#CFB991] focus:ring-[#CFB991]"> Front Load
                 </label>
-                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                  <input type="radio" name="washerLoadType" value="top" class="text-emerald-600 focus:ring-emerald-500"> Top Load
+                <label class="text-xs text-zinc-300 flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="radio" name="washerLoadType" value="top" class="text-[#CFB991] focus:ring-[#CFB991]"> Top Load
                 </label>
               </div>
-              <p class="text-[11px] text-slate-500 mt-1 pl-6">Auto-selects washer installation labor & materials</p>
+              <p class="text-[11px] text-zinc-400 mt-1 pl-6">Auto-selects washer installation labor & materials</p>
             </div>
 
             <!-- Clothes Dryer -->
-            <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white">
+            <div class="p-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-colors bg-zinc-900/60">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer select-none">
-                  <input type="checkbox" id="app_dryer" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
-                  <span class="font-semibold text-slate-800 text-sm">Clothes Dryer</span>
+                  <input type="checkbox" id="app_dryer" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black focus:ring-[#CFB991]">
+                  <span class="font-semibold text-zinc-100 text-sm">Clothes Dryer</span>
                 </label>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_dryer" placeholder="e.g. 799" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <span class="text-xs text-[#CFB991] font-bold">$</span>
+                  <input type="number" id="price_dryer" placeholder="e.g. 799" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-zinc-700 bg-black text-white text-right focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden">
                 </div>
               </div>
               <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 pl-6">
                 <div class="flex items-center gap-2">
-                  <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                    <input type="radio" name="dryerLoadType" value="front" class="text-emerald-600 focus:ring-emerald-500"> Front Load
+                  <label class="text-xs text-zinc-300 flex items-center gap-1.5 cursor-pointer select-none">
+                    <input type="radio" name="dryerLoadType" value="front" class="text-[#CFB991] focus:ring-[#CFB991]"> Front Load
                   </label>
-                  <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                    <input type="radio" name="dryerLoadType" value="top" class="text-emerald-600 focus:ring-emerald-500"> Top Load
+                  <label class="text-xs text-zinc-300 flex items-center gap-1.5 cursor-pointer select-none">
+                    <input type="radio" name="dryerLoadType" value="top" class="text-[#CFB991] focus:ring-[#CFB991]"> Top Load
                   </label>
                 </div>
-                <span class="text-slate-300 hidden sm:inline">|</span>
+                <span class="text-zinc-600 hidden sm:inline">|</span>
                 <div class="flex items-center gap-2">
-                  <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                    <input type="radio" name="dryerType" value="electric" class="text-emerald-600 focus:ring-emerald-500"> Electric
+                  <label class="text-xs text-zinc-300 flex items-center gap-1.5 cursor-pointer select-none">
+                    <input type="radio" name="dryerType" value="electric" class="text-[#CFB991] focus:ring-[#CFB991]"> Electric
                   </label>
-                  <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                    <input type="radio" name="dryerType" value="gas" class="text-emerald-600 focus:ring-emerald-500"> Gas
+                  <label class="text-xs text-zinc-300 flex items-center gap-1.5 cursor-pointer select-none">
+                    <input type="radio" name="dryerType" value="gas" class="text-[#CFB991] focus:ring-[#CFB991]"> Gas
                   </label>
                 </div>
               </div>
             </div>
 
             <!-- Stacked Laundry Center -->
-            <div id="comboCardWrapper" class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white">
+            <div id="comboCardWrapper" class="p-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-colors bg-zinc-900/60">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer">
-                  <input type="checkbox" id="app_combo" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
-                  <span class="font-semibold text-slate-800 text-sm">Stacked Laundry Center</span>
+                  <input type="checkbox" id="app_combo" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black focus:ring-[#CFB991]">
+                  <span class="font-semibold text-zinc-100 text-sm">Stacked Laundry Center</span>
                 </label>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_combo" placeholder="e.g. 1549" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <span class="text-xs text-[#CFB991] font-bold">$</span>
+                  <input type="number" id="price_combo" placeholder="e.g. 1549" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-zinc-700 bg-black text-white text-right focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden">
                 </div>
               </div>
-              <p class="text-[11px] text-slate-500 mt-1 pl-6">Auto-selects washer & dryer installations. Disables separate stacking kit.</p>
+              <p class="text-[11px] text-zinc-400 mt-1 pl-6">Auto-selects washer & dryer installations. Disables separate stacking kit.</p>
             </div>
 
             <!-- Range / Stove (Electric / Gas) -->
-            <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white">
+            <div class="p-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-colors bg-zinc-900/60">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer select-none">
-                  <input type="checkbox" id="app_range" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
-                  <span class="font-semibold text-slate-800 text-sm">Range / Stove</span>
+                  <input type="checkbox" id="app_range" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black focus:ring-[#CFB991]">
+                  <span class="font-semibold text-zinc-100 text-sm">Range / Stove</span>
                 </label>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_range" placeholder="e.g. 749" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <span class="text-xs text-[#CFB991] font-bold">$</span>
+                  <input type="number" id="price_range" placeholder="e.g. 749" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-zinc-700 bg-black text-white text-right focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden">
                 </div>
               </div>
               <div class="flex items-center gap-4 mt-2 pl-6">
-                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                  <input type="radio" name="rangeType" value="electric" class="text-emerald-600 focus:ring-emerald-500"> Electric
+                <label class="text-xs text-zinc-300 flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="radio" name="rangeType" value="electric" class="text-[#CFB991] focus:ring-[#CFB991]"> Electric
                 </label>
-                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                  <input type="radio" name="rangeType" value="gas" class="text-emerald-600 focus:ring-emerald-500"> Gas
+                <label class="text-xs text-zinc-300 flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="radio" name="rangeType" value="gas" class="text-[#CFB991] focus:ring-[#CFB991]"> Gas
                 </label>
               </div>
-              <p class="text-[11px] text-slate-500 mt-1 pl-6">Auto-selects range installation labor & electrical cord or gas flex line</p>
+              <p class="text-[11px] text-zinc-400 mt-1 pl-6">Auto-selects range installation labor & electrical cord or gas flex line</p>
             </div>
 
             <!-- Microwave (Over-The-Range) -->
-            <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white">
+            <div class="p-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-colors bg-zinc-900/60">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer select-none">
-                  <input type="checkbox" id="app_microwave" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
-                  <span class="font-semibold text-slate-800 text-sm">Microwave (Over-The-Range)</span>
+                  <input type="checkbox" id="app_microwave" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black focus:ring-[#CFB991]">
+                  <span class="font-semibold text-zinc-100 text-sm">Microwave (Over-The-Range)</span>
                 </label>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_microwave" placeholder="e.g. 329" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <span class="text-xs text-[#CFB991] font-bold">$</span>
+                  <input type="number" id="price_microwave" placeholder="e.g. 329" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-zinc-700 bg-black text-white text-right focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden">
                 </div>
               </div>
             </div>
 
             <!-- Refrigerator -->
-            <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white">
+            <div class="p-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-colors bg-zinc-900/60">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer select-none">
-                  <input type="checkbox" id="app_refrigerator" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
-                  <span class="font-semibold text-slate-800 text-sm">Refrigerator</span>
+                  <input type="checkbox" id="app_refrigerator" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black focus:ring-[#CFB991]">
+                  <span class="font-semibold text-zinc-100 text-sm">Refrigerator</span>
                 </label>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_refrigerator" placeholder="e.g. 999" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <span class="text-xs text-[#CFB991] font-bold">$</span>
+                  <input type="number" id="price_refrigerator" placeholder="e.g. 999" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-zinc-700 bg-black text-white text-right focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden">
                 </div>
               </div>
             </div>
 
             <!-- Dishwasher (Built-In) with Flat Tiers (Moved to Bottom) -->
-            <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white space-y-2.5">
+            <div class="p-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-colors bg-zinc-900/60 space-y-2.5">
               <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2.5 cursor-pointer">
-                  <input type="checkbox" id="app_dishwasher" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
-                  <span class="font-semibold text-slate-800 text-sm">Dishwasher (Built-In)</span>
+                  <input type="checkbox" id="app_dishwasher" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black focus:ring-[#CFB991]">
+                  <span class="font-semibold text-zinc-100 text-sm">Dishwasher (Built-In)</span>
                 </label>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_dishwasher" placeholder="e.g. 349" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                  <span class="text-xs text-[#CFB991] font-bold">$</span>
+                  <input type="number" id="price_dishwasher" placeholder="e.g. 349" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-zinc-700 bg-black text-white text-right focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden">
                 </div>
               </div>
 
               <!-- Dishwasher Control Position Radios -->
               <div class="flex items-center gap-4 pl-6">
-                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                  <input type="radio" name="dwControlType" value="front" class="text-emerald-600 focus:ring-emerald-500"> Front Control
+                <label class="text-xs text-zinc-300 flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="radio" name="dwControlType" value="front" class="text-[#CFB991] focus:ring-[#CFB991]"> Front Control
                 </label>
-                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                  <input type="radio" name="dwControlType" value="top" class="text-emerald-600 focus:ring-emerald-500"> Top Control
+                <label class="text-xs text-zinc-300 flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="radio" name="dwControlType" value="top" class="text-[#CFB991] focus:ring-[#CFB991]"> Top Control
                 </label>
               </div>
 
               <!-- Flat-Rate Tier Selector Buttons -->
               <div class="pl-6 space-y-1.5">
                 <div class="flex items-center justify-between">
-                  <span class="text-[10px] font-bold uppercase text-slate-500 tracking-wider">Established Client Flat Rate</span>
-                  <label class="text-[11px] text-emerald-700 font-semibold flex items-center gap-1 cursor-pointer">
-                    <input type="checkbox" id="dw_use_flat_rate" checked class="w-3.5 h-3.5 text-emerald-600 rounded border-slate-300">
+                  <span class="text-[10px] font-bold uppercase text-[#CFB991] tracking-wider">Established Client Flat Rate</span>
+                  <label class="text-[11px] text-[#CFB991] font-semibold flex items-center gap-1 cursor-pointer">
+                    <input type="checkbox" id="dw_use_flat_rate" checked class="w-3.5 h-3.5 text-[#CFB991] rounded border-zinc-700 bg-black">
                     Enforce Flat Tier
                   </label>
                 </div>
                 <div class="grid grid-cols-3 gap-1.5">
-                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-center transition-all cursor-pointer" data-cost="299" data-flat="660">
-                    <span class="block text-slate-900">$299 Cost</span>
-                    <span class="block text-emerald-700 font-extrabold text-[10px]">$660 Flat</span>
+                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border border-zinc-800 bg-black hover:border-[#CFB991]/50 text-zinc-200 text-center transition-all cursor-pointer" data-cost="299" data-flat="660">
+                    <span class="block text-zinc-100">$299 Cost</span>
+                    <span class="block text-[#CFB991] font-extrabold text-[10px]">$660 Flat</span>
                   </button>
-                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border-2 border-emerald-500 bg-emerald-50 text-emerald-900 text-center transition-all cursor-pointer" data-cost="349" data-flat="715">
-                    <span class="block text-slate-900">$349 Cost</span>
-                    <span class="block text-emerald-700 font-extrabold text-[10px]">$715 Flat</span>
+                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border-2 border-[#CFB991] bg-[#CFB991]/15 text-white text-center transition-all cursor-pointer" data-cost="349" data-flat="715">
+                    <span class="block text-zinc-100">$349 Cost</span>
+                    <span class="block text-[#CFB991] font-extrabold text-[10px]">$715 Flat</span>
                   </button>
-                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-center transition-all cursor-pointer" data-cost="399" data-flat="770">
-                    <span class="block text-slate-900">$399 Cost</span>
-                    <span class="block text-emerald-700 font-extrabold text-[10px]">$770 Flat</span>
+                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border border-zinc-800 bg-black hover:border-[#CFB991]/50 text-zinc-200 text-center transition-all cursor-pointer" data-cost="399" data-flat="770">
+                    <span class="block text-zinc-100">$399 Cost</span>
+                    <span class="block text-[#CFB991] font-extrabold text-[10px]">$770 Flat</span>
                   </button>
                 </div>
-                <p class="text-[10px] text-slate-400">All 3 tiers are exact multiples of 11: $660 (11×60), $715 (11×65), $770 (11×70).</p>
+                <p class="text-[10px] text-zinc-400">All 3 tiers are exact multiples of 11: $660 (11×60), $715 (11×65), $770 (11×70).</p>
               </div>
             </div>
 
@@ -268,118 +283,118 @@
         </section>
 
         <!-- 2. INSTALLATION ACCESSORIES & SCOPE -->
-        <section class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-5 space-y-4">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-            <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+        <section class="bg-zinc-950 rounded-2xl shadow-xl border border-zinc-800/90 p-5 space-y-4">
+          <div class="flex items-center justify-between pb-2 border-b border-zinc-800">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-zinc-200 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#CFB991]"></span>
               2. Installation Kits & Services
             </h2>
-            <span class="text-xs text-slate-400 font-medium">Accessories & Labor</span>
+            <span class="text-xs text-zinc-400 font-medium">Accessories & Labor</span>
           </div>
 
           <div class="space-y-3">
-            <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
-              <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_washer_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+            <label class="flex items-center justify-between p-2.5 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-zinc-900/40 cursor-pointer text-xs select-none">
+              <span class="font-medium text-zinc-200 flex items-center gap-2">
+                <input type="checkbox" id="opt_washer_hookup" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black">
                 Washer Installation
               </span>
-              <span class="text-slate-400 font-medium">Labor & Materials</span>
+              <span class="text-zinc-400 font-medium">Labor & Materials</span>
             </label>
 
-            <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
-              <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_dryer_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+            <label class="flex items-center justify-between p-2.5 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-zinc-900/40 cursor-pointer text-xs select-none">
+              <span class="font-medium text-zinc-200 flex items-center gap-2">
+                <input type="checkbox" id="opt_dryer_hookup" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black">
                 Dryer Installation
               </span>
-              <span class="text-slate-400 font-medium">Labor & Materials</span>
+              <span class="text-zinc-400 font-medium">Labor & Materials</span>
             </label>
 
-            <label id="opt_stacking_wrapper" class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
-              <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_stacking" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+            <label id="opt_stacking_wrapper" class="flex items-center justify-between p-2.5 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-zinc-900/40 cursor-pointer text-xs select-none">
+              <span class="font-medium text-zinc-200 flex items-center gap-2">
+                <input type="checkbox" id="opt_stacking" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black">
                 Stacking Labor & Kit
               </span>
-              <span class="text-slate-400 font-medium">Labor & Materials</span>
+              <span class="text-zinc-400 font-medium">Labor & Materials</span>
             </label>
 
-            <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
-              <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_range_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+            <label class="flex items-center justify-between p-2.5 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-zinc-900/40 cursor-pointer text-xs select-none">
+              <span class="font-medium text-zinc-200 flex items-center gap-2">
+                <input type="checkbox" id="opt_range_hookup" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black">
                 Range Installation
               </span>
-              <span class="text-slate-400 font-medium">Labor & Materials</span>
+              <span class="text-zinc-400 font-medium">Labor & Materials</span>
             </label>
 
-            <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
-              <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_micro_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+            <label class="flex items-center justify-between p-2.5 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-zinc-900/40 cursor-pointer text-xs select-none">
+              <span class="font-medium text-zinc-200 flex items-center gap-2">
+                <input type="checkbox" id="opt_micro_hookup" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black">
                 Microwave Installation
               </span>
-              <span class="text-slate-400 font-medium">Labor & Materials</span>
+              <span class="text-zinc-400 font-medium">Labor & Materials</span>
             </label>
 
-            <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
-              <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_fridge_water" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+            <label class="flex items-center justify-between p-2.5 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-zinc-900/40 cursor-pointer text-xs select-none">
+              <span class="font-medium text-zinc-200 flex items-center gap-2">
+                <input type="checkbox" id="opt_fridge_water" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black">
                 Refrigeration Installation
               </span>
-              <span class="text-slate-400 font-medium">Labor & Materials</span>
+              <span class="text-zinc-400 font-medium">Labor & Materials</span>
             </label>
 
-            <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
-              <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_dw_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+            <label class="flex items-center justify-between p-2.5 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-zinc-900/40 cursor-pointer text-xs select-none">
+              <span class="font-medium text-zinc-200 flex items-center gap-2">
+                <input type="checkbox" id="opt_dw_hookup" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black">
                 Dishwasher Installation
               </span>
-              <span class="text-slate-400 font-medium">Labor & Materials</span>
+              <span class="text-zinc-400 font-medium">Labor & Materials</span>
             </label>
 
-            <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
-              <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_drain_pan" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+            <label class="flex items-center justify-between p-2.5 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-zinc-900/40 cursor-pointer text-xs select-none">
+              <span class="font-medium text-zinc-200 flex items-center gap-2">
+                <input type="checkbox" id="opt_drain_pan" class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black">
                 Floor Drain Pan (Washer)
               </span>
-              <span class="text-slate-400 font-medium">Material Only</span>
+              <span class="text-zinc-400 font-medium">Material Only</span>
             </label>
 
             <!-- Haul Away Counter -->
-            <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+            <div class="pt-2 border-t border-zinc-800 flex items-center justify-between">
               <div>
-                <span class="text-xs font-semibold text-slate-800 block">Haul Away</span>
-                <span class="text-[11px] text-slate-500">Recycling and removal</span>
+                <span class="text-xs font-semibold text-zinc-100 block">Haul Away</span>
+                <span class="text-[11px] text-zinc-400">Recycling and removal</span>
               </div>
               <div class="flex items-center gap-2">
-                <button type="button" id="btn_haul_minus" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center justify-center transition-colors cursor-pointer">-</button>
-                <span id="haulAwayCountDisplay" class="w-6 text-center font-bold text-sm text-slate-800">0</span>
-                <button type="button" id="btn_haul_plus" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center justify-center transition-colors cursor-pointer">+</button>
+                <button type="button" id="btn_haul_minus" class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 text-zinc-200 font-bold flex items-center justify-center transition-colors cursor-pointer">-</button>
+                <span id="haulAwayCountDisplay" class="w-6 text-center font-bold text-sm text-[#CFB991]">0</span>
+                <button type="button" id="btn_haul_plus" class="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 text-zinc-200 font-bold flex items-center justify-center transition-colors cursor-pointer">+</button>
               </div>
             </div>
           </div>
         </section>
 
         <!-- 3. DIRECT TRADE QUOTE: GRAND APPLIANCE -->
-        <section class="bg-gradient-to-br from-teal-50 to-emerald-50/50 rounded-2xl shadow-xs border-2 border-teal-500/80 p-5 space-y-4">
-          <div class="flex items-center justify-between pb-2 border-b border-teal-200/80">
-            <h2 class="text-sm font-bold uppercase tracking-wider text-teal-900 flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-teal-600"></span>
+        <section class="bg-gradient-to-br from-zinc-950 via-zinc-900 to-black rounded-2xl shadow-xl border-2 border-[#CFB991]/70 p-5 space-y-4">
+          <div class="flex items-center justify-between pb-2 border-b border-[#CFB991]/30">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-[#CFB991] flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#CFB991]"></span>
               3. Grand Appliance (Quoted)
             </h2>
-            <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-teal-600 text-white">YOUR ACTUAL COST</span>
+            <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#CFB991] text-black">YOUR ACTUAL COST</span>
           </div>
 
-          <p class="text-xs text-teal-900 leading-relaxed">
+          <p class="text-xs text-zinc-300 leading-relaxed">
             Enter the direct trade estimate provided by your Grand Appliance rep. This is your true cost basis for calculating maximum profit margin against the client quote.
           </p>
 
           <div>
-            <label class="block text-xs font-semibold text-teal-900 mb-1">Total Quoted Amount from Grand Rep ($)</label>
+            <label class="block text-xs font-semibold text-[#CFB991] mb-1">Total Quoted Amount from Grand Rep ($)</label>
             <div class="relative">
-              <span class="absolute left-3 top-2.5 text-teal-700 font-bold text-sm">$</span>
-              <input type="number" id="grandQuotedTotal" placeholder="0" step="1" class="w-full pl-7 pr-3 py-2 text-base font-bold text-teal-950 bg-white rounded-xl border border-teal-300 focus:ring-2 focus:ring-teal-600 focus:outline-hidden">
+              <span class="absolute left-3 top-2.5 text-[#CFB991] font-bold text-sm">$</span>
+              <input type="number" id="grandQuotedTotal" placeholder="0" step="1" class="w-full pl-7 pr-3 py-2 text-base font-bold text-white bg-black rounded-xl border border-zinc-700 focus:ring-2 focus:ring-[#CFB991] focus:outline-hidden">
             </div>
           </div>
 
-          <button type="button" id="btn_autofill_grand" class="w-full py-1.5 px-3 bg-white hover:bg-teal-100/60 border border-teal-300 text-teal-800 rounded-lg text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+          <button type="button" id="btn_autofill_grand" class="w-full py-2 px-3 bg-zinc-900 hover:bg-zinc-800 border border-[#CFB991]/50 text-[#CFB991] rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
             <span>⚡ Populate from Grand Web Model (-10% Trade Estimate)</span>
           </button>
         </section>
@@ -390,15 +405,15 @@
       <div class="lg:col-span-7 space-y-6">
 
         <!-- PROPERTY MANAGEMENT CLIENT PRICING ENGINE CARD -->
-        <div class="bg-slate-900 text-white rounded-2xl p-5 sm:p-6 shadow-lg border border-slate-800 space-y-5">
+        <div class="bg-zinc-950 text-white rounded-2xl p-5 sm:p-6 shadow-2xl border border-zinc-800 space-y-5">
 
           <!-- Top Row: Title & Strategy Pill -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-3">
             <div>
-              <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Owner Billing Strategy</span>
+              <span class="text-xs font-semibold uppercase tracking-wider text-[#CFB991]">Owner Billing Strategy</span>
               <h2 class="text-lg font-bold text-white tracking-tight">Client Billable Quote Engine</h2>
             </div>
-            <span id="marketWeightPill" class="inline-flex items-center text-xs font-bold text-emerald-400 bg-emerald-950/80 px-2.5 py-1 rounded-full border border-emerald-800 transition-colors">
+            <span id="marketWeightPill" class="inline-flex items-center text-xs font-bold text-[#CFB991] bg-[#CFB991]/10 px-2.5 py-1 rounded-full border border-[#CFB991]/40 transition-colors">
               70% Grand | 15% HD | 15% Lowe's
             </span>
           </div>
@@ -407,41 +422,41 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
             <!-- Target Markup % -->
-            <div class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700">
+            <div class="bg-zinc-900/90 p-3.5 rounded-xl border border-zinc-800">
               <div class="flex items-center justify-between mb-2">
-                <label for="customMarkupInput" class="text-xs font-semibold text-slate-300">Target Markup %</label>
-                <span class="text-xs text-emerald-400 font-bold" id="targetMarkupDisplay">10%</span>
+                <label for="customMarkupInput" class="text-xs font-semibold text-zinc-300">Target Markup %</label>
+                <span class="text-xs text-[#CFB991] font-bold" id="targetMarkupDisplay">10%</span>
               </div>
               <div class="flex items-center gap-1.5">
-                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-slate-600 hover:bg-slate-700 text-slate-200 cursor-pointer" data-val="8">8%</button>
-                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-emerald-500 bg-emerald-500/20 text-emerald-300 cursor-pointer" data-val="10">10%</button>
-                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-slate-600 hover:bg-slate-700 text-slate-200 cursor-pointer" data-val="12">12%</button>
-                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-slate-600 hover:bg-slate-700 text-slate-200 cursor-pointer" data-val="15">15%</button>
-                <input type="number" id="customMarkupInput" value="10" step="0.5" class="w-14 px-1.5 py-1 text-xs font-bold text-center rounded-lg bg-slate-900 border border-slate-600 text-white focus:outline-hidden focus:border-emerald-500">
+                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-zinc-700 hover:border-[#CFB991] text-zinc-300 cursor-pointer bg-black" data-val="8">8%</button>
+                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border-2 border-[#CFB991] bg-[#CFB991]/20 text-[#CFB991] cursor-pointer" data-val="10">10%</button>
+                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-zinc-700 hover:border-[#CFB991] text-zinc-300 cursor-pointer bg-black" data-val="12">12%</button>
+                <button type="button" class="btn-markup px-2.5 py-1 text-xs font-bold rounded-lg border border-zinc-700 hover:border-[#CFB991] text-zinc-300 cursor-pointer bg-black" data-val="15">15%</button>
+                <input type="number" id="customMarkupInput" value="10" step="0.5" class="w-14 px-1.5 py-1 text-xs font-bold text-center rounded-lg bg-black border border-zinc-700 text-white focus:outline-hidden focus:border-[#CFB991]">
               </div>
             </div>
 
             <!-- Admin Service Fee & Rounding Placement -->
-            <div class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700 space-y-2">
+            <div class="bg-zinc-900/90 p-3.5 rounded-xl border border-zinc-800 space-y-2">
               <div class="flex items-center justify-between">
-                <label class="text-xs font-semibold text-slate-300 flex items-center gap-2 cursor-pointer select-none">
-                  <input type="checkbox" id="includeServiceFee" checked class="w-4 h-4 text-emerald-500 rounded border-slate-600 bg-slate-900 focus:ring-emerald-500">
+                <label class="text-xs font-semibold text-zinc-300 flex items-center gap-2 cursor-pointer select-none">
+                  <input type="checkbox" id="includeServiceFee" checked class="w-4 h-4 text-[#CFB991] rounded border-zinc-700 bg-black focus:ring-[#CFB991]">
                   Admin Service Fee
                 </label>
                 <div class="flex items-center gap-1">
-                  <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="serviceFeeAmount" value="25.00" step="5" class="w-14 px-1.5 py-0.5 text-xs font-bold text-right rounded-lg bg-slate-900 border border-slate-600 text-white focus:outline-hidden">
+                  <span class="text-xs text-[#CFB991] font-bold">$</span>
+                  <input type="number" id="serviceFeeAmount" value="25.00" step="5" class="w-14 px-1.5 py-0.5 text-xs font-bold text-right rounded-lg bg-black border border-zinc-700 text-white focus:outline-hidden">
                 </div>
               </div>
 
               <!-- Fee Timing Relative to Rounding -->
-              <div class="text-[11px] text-slate-400 flex items-center gap-3 pt-1 border-t border-slate-700/80">
+              <div class="text-[11px] text-zinc-400 flex items-center gap-3 pt-1 border-t border-zinc-800">
                 <label class="flex items-center gap-1 cursor-pointer select-none">
-                  <input type="radio" name="feeTiming" value="before" checked class="text-emerald-500 text-xs">
+                  <input type="radio" name="feeTiming" value="before" checked class="text-[#CFB991] text-xs">
                   Fee included in factor-11
                 </label>
                 <label class="flex items-center gap-1 cursor-pointer select-none">
-                  <input type="radio" name="feeTiming" value="after" class="text-emerald-500 text-xs">
+                  <input type="radio" name="feeTiming" value="after" class="text-[#CFB991] text-xs">
                   Fee added after
                 </label>
               </div>
@@ -450,46 +465,46 @@
           </div>
 
           <!-- CLIENT PROPOSAL HERO AMOUNT -->
-          <div class="bg-gradient-to-r from-emerald-950/70 via-slate-800 to-slate-900 rounded-xl p-5 border border-emerald-500/40 relative">
+          <div class="bg-gradient-to-r from-black via-zinc-900 to-black rounded-xl p-5 border border-[#CFB991]/50 relative shadow-inner">
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider block">Recommended Client Proposal Total</span>
-                  <span id="dwFlatTierBadge" class="hidden px-2 py-0.5 rounded text-[10px] font-bold bg-teal-800/80 text-teal-200 border border-teal-600">DW Flat Rate: $0</span>
+                  <span class="text-xs font-semibold text-[#CFB991] uppercase tracking-wider block">Recommended Client Proposal Total</span>
+                  <span id="dwFlatTierBadge" class="hidden px-2 py-0.5 rounded text-[10px] font-bold bg-[#CFB991]/20 text-[#CFB991] border border-[#CFB991]/60">DW Flat Rate: $0</span>
                 </div>
                 <div class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1" id="clientProposalTotal">$0.00</div>
-                <div class="flex flex-wrap items-center gap-2 mt-1.5 text-xs text-emerald-300/90 font-mono" id="factor11FormulaPreview">
+                <div class="flex flex-wrap items-center gap-2 mt-1.5 text-xs text-[#CFB991]/90 font-mono" id="factor11FormulaPreview">
                   Divisible by 11: $0 ÷ 11 = 0 exact
                 </div>
               </div>
 
-              <div class="text-right sm:border-l sm:border-slate-700 sm:pl-5">
-                <span class="text-xs text-slate-400 block font-medium">True Net PM Profit</span>
-                <div class="text-2xl font-bold text-emerald-400 tracking-tight" id="clientNetProfitDisplay">$0.00</div>
-                <span class="text-xs text-emerald-300 font-semibold" id="clientMarginPctDisplay">0.0% margin</span>
+              <div class="text-right sm:border-l sm:border-zinc-800 sm:pl-5">
+                <span class="text-xs text-zinc-400 block font-medium">True Net PM Profit</span>
+                <div class="text-2xl font-bold text-[#CFB991] tracking-tight" id="clientNetProfitDisplay">$0.00</div>
+                <span class="text-xs text-[#CEB888] font-semibold" id="clientMarginPctDisplay">0.0% margin</span>
               </div>
             </div>
 
             <!-- Live Audit Row -->
-            <div class="mt-4 pt-3 border-t border-slate-700/80 grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+            <div class="mt-4 pt-3 border-t border-zinc-800 grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
               <div>
-                <span class="text-slate-400 text-[10px] uppercase font-bold block">Weighted Mkt Baseline</span>
-                <span class="font-bold text-slate-200" id="clientMarketBenchmarkDisplay">$0.00</span>
+                <span class="text-zinc-400 text-[10px] uppercase font-bold block">Weighted Mkt Baseline</span>
+                <span class="font-bold text-zinc-200" id="clientMarketBenchmarkDisplay">$0.00</span>
               </div>
               <div>
-                <span class="text-slate-400 text-[10px] uppercase font-bold block">Quoted Cost Basis</span>
-                <span class="font-bold text-teal-400" id="clientBasisDisplay">$0.00</span>
+                <span class="text-zinc-400 text-[10px] uppercase font-bold block">Quoted Cost Basis</span>
+                <span class="font-bold text-[#CFB991]" id="clientBasisDisplay">$0.00</span>
               </div>
               <div class="col-span-2 sm:col-span-1">
-                <span class="text-slate-400 text-[10px] uppercase font-bold block">Variance vs Market</span>
-                <span class="font-bold text-emerald-400" id="clientVarianceDisplay">+0.0%</span>
+                <span class="text-zinc-400 text-[10px] uppercase font-bold block">Variance vs Market</span>
+                <span class="font-bold text-[#CFB991]" id="clientVarianceDisplay">+0.0%</span>
               </div>
             </div>
           </div>
 
           <!-- Copy Quote Action Button -->
           <div class="flex items-center gap-3">
-            <button type="button" id="btn_copy_quote_owner" class="flex-1 py-3 px-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-sm transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer">
+            <button type="button" id="btn_copy_quote_owner" class="flex-1 py-3 px-4 bg-[#CFB991] hover:bg-[#CEB888] text-black font-extrabold rounded-xl text-sm transition-colors shadow-lg flex items-center justify-center gap-2 cursor-pointer">
               <span>📋 Copy Formatted Quote for Owner</span>
             </button>
           </div>
@@ -500,63 +515,63 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
 
           <!-- Grand Appliance (Quoted) Card -->
-          <div id="card_grand_quoted" class="bg-gradient-to-b from-teal-50 to-white rounded-2xl p-3.5 border-2 border-teal-600 shadow-xs relative">
+          <div id="card_grand_quoted" class="bg-gradient-to-b from-zinc-900 to-black rounded-2xl p-3.5 border-2 border-[#CFB991] shadow-md relative">
             <div class="flex items-center justify-between mb-1.5">
-              <span class="font-bold text-teal-800 text-xs truncate">Grand (Quoted)</span>
-              <span class="px-1.5 py-0.5 bg-teal-600 text-white text-[9px] font-bold rounded">DIRECT</span>
+              <span class="font-bold text-[#CFB991] text-xs truncate">Grand (Quoted)</span>
+              <span class="px-1.5 py-0.5 bg-[#CFB991] text-black text-[9px] font-extrabold rounded">DIRECT</span>
             </div>
-            <span class="text-[10px] text-teal-700 block font-medium">Contractor Net</span>
-            <div class="text-base sm:text-lg font-extrabold text-teal-900 tracking-tight mt-0.5" id="summary_total_grand_quoted">$0</div>
-            <p class="text-[10px] text-slate-500 mt-2 border-t border-slate-100 pt-1.5 truncate">Direct trade quote</p>
+            <span class="text-[10px] text-zinc-400 block font-medium">Contractor Net</span>
+            <div class="text-base sm:text-lg font-extrabold text-white tracking-tight mt-0.5" id="summary_total_grand_quoted">$0</div>
+            <p class="text-[10px] text-zinc-400 mt-2 border-t border-zinc-800 pt-1.5 truncate">Direct trade quote</p>
           </div>
 
           <!-- Grand Appliance (Web) Card -->
-          <div id="card_grand_web" class="bg-white rounded-2xl p-3.5 border border-slate-200 shadow-xs relative">
+          <div id="card_grand_web" class="bg-zinc-950 rounded-2xl p-3.5 border border-zinc-800 shadow-sm relative">
             <div class="flex items-center justify-between mb-1.5">
-              <span class="font-bold text-emerald-700 text-xs truncate">Grand (Web)</span>
-              <span id="badge_grand_wt" class="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 text-[9px] font-bold rounded">70% WT</span>
+              <span class="font-bold text-zinc-200 text-xs truncate">Grand (Web)</span>
+              <span id="badge_grand_wt" class="px-1.5 py-0.5 bg-[#CFB991]/20 text-[#CFB991] text-[9px] font-bold rounded">70% WT</span>
             </div>
-            <span class="text-[10px] text-slate-400 block font-medium">Published Web</span>
-            <div class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight mt-0.5" id="summary_total_grand">$0</div>
-            <p class="text-[10px] text-slate-400 mt-2 border-t border-slate-100 pt-1.5 truncate">$59 del + $10 fuel & skus</p>
+            <span class="text-[10px] text-zinc-400 block font-medium">Published Web</span>
+            <div class="text-base sm:text-lg font-extrabold text-zinc-100 tracking-tight mt-0.5" id="summary_total_grand">$0</div>
+            <p class="text-[10px] text-zinc-400 mt-2 border-t border-zinc-800 pt-1.5 truncate">$59 del + $10 fuel & skus</p>
           </div>
 
           <!-- Home Depot Card -->
-          <div id="card_hd" class="bg-white rounded-2xl p-3.5 border border-slate-200 shadow-xs relative">
+          <div id="card_hd" class="bg-zinc-950 rounded-2xl p-3.5 border border-zinc-800 shadow-sm relative">
             <div class="flex items-center justify-between mb-1.5">
-              <span class="font-bold text-orange-600 text-xs truncate">Home Depot</span>
-              <span id="badge_hd_wt" class="px-1.5 py-0.5 bg-orange-100 text-orange-800 text-[9px] font-bold rounded">15% WT</span>
+              <span class="font-bold text-orange-400 text-xs truncate">Home Depot</span>
+              <span id="badge_hd_wt" class="px-1.5 py-0.5 bg-orange-950/80 text-orange-300 text-[9px] font-bold rounded">15% WT</span>
             </div>
-            <span class="text-[10px] text-slate-400 block font-medium">Estimated Turnkey</span>
-            <div class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight mt-0.5" id="summary_total_hd">$0</div>
-            <p class="text-[10px] text-slate-400 mt-2 border-t border-slate-100 pt-1.5 truncate">Free del >$396 + kits</p>
+            <span class="text-[10px] text-zinc-400 block font-medium">Estimated Turnkey</span>
+            <div class="text-base sm:text-lg font-extrabold text-zinc-100 tracking-tight mt-0.5" id="summary_total_hd">$0</div>
+            <p class="text-[10px] text-zinc-400 mt-2 border-t border-zinc-800 pt-1.5 truncate">Free del >$396 + kits</p>
           </div>
 
           <!-- Lowe's Card -->
-          <div id="card_lowes" class="bg-white rounded-2xl p-3.5 border border-slate-200 shadow-xs relative">
+          <div id="card_lowes" class="bg-zinc-950 rounded-2xl p-3.5 border border-zinc-800 shadow-sm relative">
             <div class="flex items-center justify-between mb-1.5">
-              <span class="font-bold text-blue-700 text-xs truncate">Lowe's</span>
-              <span id="badge_lowes_wt" class="px-1.5 py-0.5 bg-blue-100 text-blue-800 text-[9px] font-bold rounded">15% WT</span>
+              <span class="font-bold text-sky-400 text-xs truncate">Lowe's</span>
+              <span id="badge_lowes_wt" class="px-1.5 py-0.5 bg-sky-950/80 text-sky-300 text-[9px] font-bold rounded">15% WT</span>
             </div>
-            <span class="text-[10px] text-slate-400 block font-medium">Estimated Turnkey</span>
-            <div class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight mt-0.5" id="summary_total_lowes">$0</div>
-            <p class="text-[10px] text-slate-400 mt-2 border-t border-slate-100 pt-1.5 truncate">Free del >$396 + kits</p>
+            <span class="text-[10px] text-zinc-400 block font-medium">Estimated Turnkey</span>
+            <div class="text-base sm:text-lg font-extrabold text-zinc-100 tracking-tight mt-0.5" id="summary_total_lowes">$0</div>
+            <p class="text-[10px] text-zinc-400 mt-2 border-t border-zinc-800 pt-1.5 truncate">Free del >$396 + kits</p>
           </div>
 
         </div>
 
         <!-- 4-WAY ITEMIZED VENDOR MATRIX -->
-        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
-          <div class="p-4 sm:p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/50">
+        <div class="bg-zinc-950 rounded-2xl border border-zinc-800 shadow-xl overflow-hidden">
+          <div class="p-4 sm:p-5 border-b border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-zinc-900/60">
             <div>
-              <h3 class="font-bold text-slate-900 text-base">4-Way Itemized Vendor Matrix</h3>
-              <p class="text-xs text-slate-500">Retail benchmarks, weighted market average, & direct quoted trade cost</p>
+              <h3 class="font-bold text-white text-base">4-Way Itemized Vendor Matrix</h3>
+              <p class="text-xs text-zinc-400">Retail benchmarks, weighted market average, & direct quoted trade cost</p>
             </div>
             <div class="flex items-center gap-2">
-              <button id="copyEstimateBtn" class="px-3 py-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer">
+              <button id="copyEstimateBtn" class="px-3 py-1.5 bg-black border border-zinc-700 hover:border-[#CFB991] text-zinc-200 hover:text-[#CFB991] rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer">
                 <span>📋 Copy Summary</span>
               </button>
-              <button onclick="window.print()" class="px-3 py-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer">
+              <button onclick="window.print()" class="px-3 py-1.5 bg-black border border-zinc-700 hover:border-[#CFB991] text-zinc-200 hover:text-[#CFB991] rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer">
                 <span>🖨️ Print</span>
               </button>
             </div>
@@ -565,97 +580,97 @@
           <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse text-xs sm:text-sm">
               <thead>
-                <tr class="border-b border-slate-200 bg-slate-100/60 font-semibold text-slate-600">
+                <tr class="border-b border-zinc-800 bg-zinc-900/90 font-semibold text-zinc-400">
                   <th class="py-3 px-3">Line Item Category</th>
-                  <th class="py-3 px-3 text-right text-orange-700">Home Depot</th>
-                  <th class="py-3 px-3 text-right text-blue-700">Lowe's</th>
-                  <th class="py-3 px-3 text-right text-emerald-800">Grand (Web)</th>
-                  <th class="py-3 px-3 text-right text-teal-800 bg-teal-50/50">Grand (Quoted)</th>
+                  <th class="py-3 px-3 text-right text-orange-400">Home Depot</th>
+                  <th class="py-3 px-3 text-right text-sky-400">Lowe's</th>
+                  <th class="py-3 px-3 text-right text-zinc-200">Grand (Web)</th>
+                  <th class="py-3 px-3 text-right text-[#CFB991] bg-black">Grand (Quoted)</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100 text-slate-700 font-normal">
+              <tbody class="divide-y divide-zinc-900 text-zinc-300 font-normal">
                 
                 <!-- Appliances Equipment Subtotal -->
-                <tr class="hover:bg-slate-50/80 transition-colors">
+                <tr class="hover:bg-zinc-900/40 transition-colors">
                   <td class="py-2.5 px-3">
-                    <span class="font-semibold text-slate-900 block">Appliance Equipment</span>
-                    <span class="text-[10px] text-slate-400" id="tableSelectedAppsLabel">0 appliances selected</span>
+                    <span class="font-semibold text-white block">Appliance Equipment</span>
+                    <span class="text-[10px] text-zinc-400" id="tableSelectedAppsLabel">0 appliances selected</span>
                   </td>
                   <td class="py-2.5 px-3 text-right font-medium" id="row_equip_hd">$0.00</td>
                   <td class="py-2.5 px-3 text-right font-medium" id="row_equip_lowes">$0.00</td>
                   <td class="py-2.5 px-3 text-right font-medium" id="row_equip_grand">$0.00</td>
-                  <td class="py-2.5 px-3 text-right font-medium bg-teal-50/30 text-teal-900" id="row_equip_quoted">—</td>
+                  <td class="py-2.5 px-3 text-right font-medium bg-black text-[#CFB991]" id="row_equip_quoted">—</td>
                 </tr>
 
                 <!-- Delivery & Room Placement -->
-                <tr class="hover:bg-slate-50/80 transition-colors">
+                <tr class="hover:bg-zinc-900/40 transition-colors">
                   <td class="py-2.5 px-3">
-                    <span class="font-semibold text-slate-900 block">Delivery & Placement</span>
-                    <span class="text-[10px] text-slate-400" id="tableDeliveryNote">Inside room of choice</span>
+                    <span class="font-semibold text-white block">Delivery & Placement</span>
+                    <span class="text-[10px] text-zinc-400" id="tableDeliveryNote">Inside room of choice</span>
                   </td>
                   <td class="py-2.5 px-3 text-right" id="row_delivery_hd">$0.00</td>
                   <td class="py-2.5 px-3 text-right" id="row_delivery_lowes">$0.00</td>
                   <td class="py-2.5 px-3 text-right" id="row_delivery_grand">$0.00</td>
-                  <td class="py-2.5 px-3 text-right bg-teal-50/30 text-teal-900" id="row_delivery_quoted">—</td>
+                  <td class="py-2.5 px-3 text-right bg-black text-[#CFB991]" id="row_delivery_quoted">—</td>
                 </tr>
 
                 <!-- Installation & Stacking Labor -->
-                <tr class="hover:bg-slate-50/80 transition-colors">
+                <tr class="hover:bg-zinc-900/40 transition-colors">
                   <td class="py-2.5 px-3">
-                    <span class="font-semibold text-slate-900 block">Connection & Stacking Labor</span>
-                    <span class="text-[10px] text-slate-400">Plumbing, electrical, lifting</span>
+                    <span class="font-semibold text-white block">Connection & Stacking Labor</span>
+                    <span class="text-[10px] text-zinc-400">Plumbing, electrical, lifting</span>
                   </td>
                   <td class="py-2.5 px-3 text-right" id="row_labor_hd">$0.00</td>
                   <td class="py-2.5 px-3 text-right" id="row_labor_lowes">$0.00</td>
                   <td class="py-2.5 px-3 text-right" id="row_labor_grand">$0.00</td>
-                  <td class="py-2.5 px-3 text-right bg-teal-50/30 text-teal-900" id="row_labor_quoted">—</td>
+                  <td class="py-2.5 px-3 text-right bg-black text-[#CFB991]" id="row_labor_quoted">—</td>
                 </tr>
 
                 <!-- Required Parts & Accessories -->
-                <tr class="hover:bg-slate-50/80 transition-colors">
+                <tr class="hover:bg-zinc-900/40 transition-colors">
                   <td class="py-2.5 px-3">
-                    <span class="font-semibold text-slate-900 block">Materials & Accessories</span>
-                    <span class="text-[10px] text-slate-400">Hoses, cord, vent, drain pan, stack kit</span>
+                    <span class="font-semibold text-white block">Materials & Accessories</span>
+                    <span class="text-[10px] text-zinc-400">Hoses, cord, vent, drain pan, stack kit</span>
                   </td>
                   <td class="py-2.5 px-3 text-right" id="row_parts_hd">$0.00</td>
                   <td class="py-2.5 px-3 text-right" id="row_parts_lowes">$0.00</td>
                   <td class="py-2.5 px-3 text-right" id="row_parts_grand">$0.00</td>
-                  <td class="py-2.5 px-3 text-right bg-teal-50/30 text-teal-900" id="row_parts_quoted">—</td>
+                  <td class="py-2.5 px-3 text-right bg-black text-[#CFB991]" id="row_parts_quoted">—</td>
                 </tr>
 
                 <!-- Haul Away & Disposal -->
-                <tr class="hover:bg-slate-50/80 transition-colors">
+                <tr class="hover:bg-zinc-900/40 transition-colors">
                   <td class="py-2.5 px-3">
-                    <span class="font-semibold text-slate-900 block">Haul Away & Recycling</span>
-                    <span class="text-[10px] text-slate-400" id="tableHaulNote">0 old unit(s)</span>
+                    <span class="font-semibold text-white block">Haul Away & Recycling</span>
+                    <span class="text-[10px] text-zinc-400" id="tableHaulNote">0 old unit(s)</span>
                   </td>
                   <td class="py-2.5 px-3 text-right" id="row_haul_hd">$0.00</td>
                   <td class="py-2.5 px-3 text-right" id="row_haul_lowes">$0.00</td>
                   <td class="py-2.5 px-3 text-right" id="row_haul_grand">$0.00</td>
-                  <td class="py-2.5 px-3 text-right bg-teal-50/30 text-teal-900" id="row_haul_quoted">—</td>
+                  <td class="py-2.5 px-3 text-right bg-black text-[#CFB991]" id="row_haul_quoted">—</td>
                 </tr>
 
                 <!-- Sales Tax -->
-                <tr class="hover:bg-slate-50/80 transition-colors">
+                <tr class="hover:bg-zinc-900/40 transition-colors">
                   <td class="py-2.5 px-3">
-                    <span class="font-semibold text-slate-900 block">Sales Tax</span>
-                    <span class="text-[10px] text-slate-400" id="tableTaxRateNote">7.0%</span>
+                    <span class="font-semibold text-white block">Sales Tax</span>
+                    <span class="text-[10px] text-zinc-400" id="tableTaxRateNote">7.0%</span>
                   </td>
                   <td class="py-2.5 px-3 text-right" id="row_tax_hd">$0.00</td>
                   <td class="py-2.5 px-3 text-right" id="row_tax_lowes">$0.00</td>
                   <td class="py-2.5 px-3 text-right" id="row_tax_grand">$0.00</td>
-                  <td class="py-2.5 px-3 text-right bg-teal-50/30 text-teal-900" id="row_tax_quoted">Included in quote</td>
+                  <td class="py-2.5 px-3 text-right bg-black text-[#CFB991]" id="row_tax_quoted">Included in quote</td>
                 </tr>
 
                 <!-- GRAND TOTAL -->
-                <tr class="bg-slate-50 font-bold text-slate-900 text-xs sm:text-sm border-t-2 border-slate-300">
+                <tr class="bg-black font-bold text-white text-xs sm:text-sm border-t-2 border-zinc-800">
                   <td class="py-3 px-3">
                     <span>Turnkey Total</span>
                   </td>
-                  <td class="py-3 px-3 text-right text-orange-700" id="row_total_hd">$0.00</td>
-                  <td class="py-3 px-3 text-right text-blue-800" id="row_total_lowes">$0.00</td>
-                  <td class="py-3 px-3 text-right text-emerald-800" id="row_total_grand">$0.00</td>
-                  <td class="py-3 px-3 text-right text-teal-900 bg-teal-100/40" id="row_total_quoted">$0.00</td>
+                  <td class="py-3 px-3 text-right text-orange-400" id="row_total_hd">$0.00</td>
+                  <td class="py-3 px-3 text-right text-sky-400" id="row_total_lowes">$0.00</td>
+                  <td class="py-3 px-3 text-right text-zinc-200" id="row_total_grand">$0.00</td>
+                  <td class="py-3 px-3 text-right text-[#CFB991] bg-zinc-900/80 border-l border-zinc-800" id="row_total_quoted">$0.00</td>
                 </tr>
 
               </tbody>
@@ -663,8 +678,8 @@
           </div>
 
           <!-- Explanatory Footnote -->
-          <div class="p-4 bg-slate-50/80 border-t border-slate-200 text-xs text-slate-600 space-y-2">
-            <h4 class="font-bold text-slate-700">Weighted Market Benchmark & Margin Strategy:</h4>
+          <div class="p-4 bg-zinc-900/80 border-t border-zinc-800 text-xs text-zinc-300 space-y-2">
+            <h4 class="font-bold text-[#CFB991]">Weighted Market Benchmark & Margin Strategy:</h4>
             <p class="text-[11px] leading-relaxed" id="footnoteStrategyText">
               The benchmark baseline is weighted at <strong>70% Grand Appliance (Web) + 15% The Home Depot + 15% Lowe's</strong>.
               Applying your 10% premium rounded to exact multiples of 11 ensures the proposal remains audit-proof and competitive, while your direct <strong>Grand Appliance (Quoted)</strong> contractor discount maximizes gross profit.
@@ -679,8 +694,8 @@
   </div>
 
   <!-- Notification Toast Container -->
-  <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl text-xs font-semibold transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 z-50">
-    <span class="text-emerald-400">✓</span>
+  <div id="toast" class="fixed bottom-5 right-5 bg-zinc-900 text-white px-4 py-3 rounded-xl shadow-2xl border border-[#CFB991]/50 text-xs font-semibold transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 z-50">
+    <span class="text-[#CFB991]">✓</span>
     <span id="toastMsg">Copied to clipboard!</span>
   </div>
 
@@ -905,11 +920,11 @@
         if (includeServiceFeeCheckbox) includeServiceFeeCheckbox.checked = false;
 
         document.querySelectorAll('.btn-dw-tier').forEach(b => {
-          b.classList.remove('border-2', 'border-emerald-500', 'bg-emerald-50', 'text-emerald-900');
-          b.classList.add('border', 'border-slate-200', 'bg-slate-50', 'text-slate-700');
+          b.classList.remove('border-2', 'border-[#CFB991]', 'bg-[#CFB991]/15', 'text-white');
+          b.classList.add('border', 'border-zinc-800', 'bg-black', 'text-zinc-200');
         });
-        targetBtn.classList.remove('border', 'border-slate-200', 'bg-slate-50', 'text-slate-700');
-        targetBtn.classList.add('border-2', 'border-emerald-500', 'bg-emerald-50', 'text-emerald-900');
+        targetBtn.classList.remove('border', 'border-zinc-800', 'bg-black', 'text-zinc-200');
+        targetBtn.classList.add('border-2', 'border-[#CFB991]', 'bg-[#CFB991]/15', 'text-white');
 
         recalculate();
       });
@@ -925,11 +940,11 @@
           if (cost === p) {
             matched = true;
             selectedDWFlatRate = parseFloat(b.getAttribute('data-flat'));
-            b.classList.remove('border', 'border-slate-200', 'bg-slate-50', 'text-slate-700');
-            b.classList.add('border-2', 'border-emerald-500', 'bg-emerald-50', 'text-emerald-900');
+            b.classList.remove('border', 'border-zinc-800', 'bg-black', 'text-zinc-200');
+            b.classList.add('border-2', 'border-[#CFB991]', 'bg-[#CFB991]/15', 'text-white');
           } else {
-            b.classList.remove('border-2', 'border-emerald-500', 'bg-emerald-50', 'text-emerald-900');
-            b.classList.add('border', 'border-slate-200', 'bg-slate-50', 'text-slate-700');
+            b.classList.remove('border-2', 'border-[#CFB991]', 'bg-[#CFB991]/15', 'text-white');
+            b.classList.add('border', 'border-zinc-800', 'bg-black', 'text-zinc-200');
           }
         });
         if (!matched) {
@@ -1346,11 +1361,11 @@
       if (weightPillEl) {
         weightPillEl.textContent = weightPillText;
         if (isGrandLowest) {
-          weightPillEl.classList.remove('text-emerald-400', 'bg-emerald-950/80', 'border-emerald-800');
+          weightPillEl.classList.remove('text-[#CFB991]', 'bg-[#CFB991]/10', 'border-[#CFB991]/40');
           weightPillEl.classList.add('text-amber-300', 'bg-amber-950/80', 'border-amber-700');
         } else {
           weightPillEl.classList.remove('text-amber-300', 'bg-amber-950/80', 'border-amber-700');
-          weightPillEl.classList.add('text-emerald-400', 'bg-emerald-950/80', 'border-emerald-800');
+          weightPillEl.classList.add('text-[#CFB991]', 'bg-[#CFB991]/10', 'border-[#CFB991]/40');
         }
       }
 
@@ -1519,12 +1534,12 @@
     document.querySelectorAll('.btn-markup').forEach(btn => {
       btn.addEventListener('click', (e) => {
         document.querySelectorAll('.btn-markup').forEach(b => {
-          b.classList.remove('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
-          b.classList.add('border-slate-600', 'text-slate-200');
+          b.classList.remove('border-2', 'border-[#CFB991]', 'bg-[#CFB991]/20', 'text-[#CFB991]');
+          b.classList.add('border', 'border-zinc-700', 'text-zinc-300');
         });
         const target = e.currentTarget;
-        target.classList.remove('border-slate-600', 'text-slate-200');
-        target.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+        target.classList.remove('border', 'border-zinc-700', 'text-zinc-300');
+        target.classList.add('border-2', 'border-[#CFB991]', 'bg-[#CFB991]/20', 'text-[#CFB991]');
         targetMarkupPct = parseFloat(target.getAttribute('data-val'));
         if (customMarkupInput) customMarkupInput.value = targetMarkupPct;
         recalculate();
@@ -1536,8 +1551,8 @@
         const val = parseFloat(e.target.value) || 0;
         targetMarkupPct = val;
         document.querySelectorAll('.btn-markup').forEach(b => {
-          b.classList.remove('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
-          b.classList.add('border-slate-600', 'text-slate-200');
+          b.classList.remove('border-2', 'border-[#CFB991]', 'bg-[#CFB991]/20', 'text-[#CFB991]');
+          b.classList.add('border', 'border-zinc-700', 'text-zinc-300');
         });
         recalculate();
       });
