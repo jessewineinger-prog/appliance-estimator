@@ -1271,7 +1271,8 @@
       const lowesTotal = equipSubtotal + lowesDelivery + lowesLabor + lowesParts + lowesHaul + lowesTax;
 
       // --- MODEL C: VENDOR #1 (WEB / RETAIL SCHEDULE) ---
-      const grandBaseDelivery = selectedAppCount > 0 ? 59.00 : 0.00;
+      // Over-the-range microwave with installation does not incur the separate $59 delivery fee
+      const grandBaseDelivery = (selectedAppCount > 0 && !(isMicroOnly && doMicroHookup)) ? 59.00 : 0.00;
       const grandFuelSurcharge = selectedAppCount > 0 ? 10.00 : 0.00;
       const grandDelivery = grandBaseDelivery + grandFuelSurcharge;
 
@@ -1355,8 +1356,8 @@
       const isElectricRangeActive = hasRange && !isGasRange;
       const electricRangeMultiplier = isElectricRangeActive ? 1.01 : 1.00;
 
-      // Microwave proposal calibration: ~2% reduction (0.98 multiplier)
-      const microwaveMultiplier = (appMicrowave && appMicrowave.checked) ? 0.98 : 1.00;
+      // Microwave proposal calibration: ~1% reduction (0.99 multiplier)
+      const microwaveMultiplier = (appMicrowave && appMicrowave.checked) ? 0.99 : 1.00;
 
       let clientFinalQuote = 0;
       let formulaNote = '';
