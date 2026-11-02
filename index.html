@@ -163,56 +163,6 @@
               <p class="text-[11px] text-slate-500 mt-1 pl-6">Auto-selects washer & dryer installations. Disables separate stacking kit.</p>
             </div>
 
-            <!-- Dishwasher (Built-In) with Flat Tiers -->
-            <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white space-y-2.5">
-              <div class="flex items-center justify-between">
-                <label class="flex items-center gap-2.5 cursor-pointer">
-                  <input type="checkbox" id="app_dishwasher" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
-                  <span class="font-semibold text-slate-800 text-sm">Dishwasher (Built-In)</span>
-                </label>
-                <div class="flex items-center gap-1.5">
-                  <span class="text-xs text-slate-400">$</span>
-                  <input type="number" id="price_dishwasher" placeholder="e.g. 349" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
-                </div>
-              </div>
-
-              <!-- Dishwasher Control Position Radios -->
-              <div class="flex items-center gap-4 pl-6">
-                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                  <input type="radio" name="dwControlType" value="front" class="text-emerald-600 focus:ring-emerald-500"> Front Control
-                </label>
-                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
-                  <input type="radio" name="dwControlType" value="top" class="text-emerald-600 focus:ring-emerald-500"> Top Control
-                </label>
-              </div>
-
-              <!-- Flat-Rate Tier Selector Buttons -->
-              <div class="pl-6 space-y-1.5">
-                <div class="flex items-center justify-between">
-                  <span class="text-[10px] font-bold uppercase text-slate-500 tracking-wider">Established Client Flat Rate</span>
-                  <label class="text-[11px] text-emerald-700 font-semibold flex items-center gap-1 cursor-pointer">
-                    <input type="checkbox" id="dw_use_flat_rate" checked class="w-3.5 h-3.5 text-emerald-600 rounded border-slate-300">
-                    Enforce Flat Tier
-                  </label>
-                </div>
-                <div class="grid grid-cols-3 gap-1.5">
-                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-center transition-all cursor-pointer" data-cost="299" data-flat="660">
-                    <span class="block text-slate-900">$299 Cost</span>
-                    <span class="block text-emerald-700 font-extrabold text-[10px]">$660 Flat</span>
-                  </button>
-                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border-2 border-emerald-500 bg-emerald-50 text-emerald-900 text-center transition-all cursor-pointer" data-cost="349" data-flat="715">
-                    <span class="block text-slate-900">$349 Cost</span>
-                    <span class="block text-emerald-700 font-extrabold text-[10px]">$715 Flat</span>
-                  </button>
-                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-center transition-all cursor-pointer" data-cost="399" data-flat="770">
-                    <span class="block text-slate-900">$399 Cost</span>
-                    <span class="block text-emerald-700 font-extrabold text-[10px]">$770 Flat</span>
-                  </button>
-                </div>
-                <p class="text-[10px] text-slate-400">All 3 tiers are exact multiples of 11: $660 (11×60), $715 (11×65), $770 (11×70).</p>
-              </div>
-            </div>
-
             <!-- Range / Stove (Electric / Gas) -->
             <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white">
               <div class="flex items-center justify-between">
@@ -264,6 +214,56 @@
               </div>
             </div>
 
+            <!-- Dishwasher (Built-In) with Flat Tiers (Moved to Bottom) -->
+            <div class="p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors bg-white space-y-2.5">
+              <div class="flex items-center justify-between">
+                <label class="flex items-center gap-2.5 cursor-pointer">
+                  <input type="checkbox" id="app_dishwasher" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
+                  <span class="font-semibold text-slate-800 text-sm">Dishwasher (Built-In)</span>
+                </label>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400">$</span>
+                  <input type="number" id="price_dishwasher" placeholder="e.g. 349" class="w-24 px-2 py-1 text-sm font-semibold rounded-md border border-slate-300 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
+                </div>
+              </div>
+
+              <!-- Dishwasher Control Position Radios -->
+              <div class="flex items-center gap-4 pl-6">
+                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="radio" name="dwControlType" value="front" class="text-emerald-600 focus:ring-emerald-500"> Front Control
+                </label>
+                <label class="text-xs text-slate-600 flex items-center gap-1.5 cursor-pointer select-none">
+                  <input type="radio" name="dwControlType" value="top" class="text-emerald-600 focus:ring-emerald-500"> Top Control
+                </label>
+              </div>
+
+              <!-- Flat-Rate Tier Selector Buttons -->
+              <div class="pl-6 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold uppercase text-slate-500 tracking-wider">Established Client Flat Rate</span>
+                  <label class="text-[11px] text-emerald-700 font-semibold flex items-center gap-1 cursor-pointer">
+                    <input type="checkbox" id="dw_use_flat_rate" checked class="w-3.5 h-3.5 text-emerald-600 rounded border-slate-300">
+                    Enforce Flat Tier
+                  </label>
+                </div>
+                <div class="grid grid-cols-3 gap-1.5">
+                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-center transition-all cursor-pointer" data-cost="299" data-flat="660">
+                    <span class="block text-slate-900">$299 Cost</span>
+                    <span class="block text-emerald-700 font-extrabold text-[10px]">$660 Flat</span>
+                  </button>
+                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border-2 border-emerald-500 bg-emerald-50 text-emerald-900 text-center transition-all cursor-pointer" data-cost="349" data-flat="715">
+                    <span class="block text-slate-900">$349 Cost</span>
+                    <span class="block text-emerald-700 font-extrabold text-[10px]">$715 Flat</span>
+                  </button>
+                  <button type="button" class="btn-dw-tier px-2 py-1.5 text-[11px] font-bold rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-center transition-all cursor-pointer" data-cost="399" data-flat="770">
+                    <span class="block text-slate-900">$399 Cost</span>
+                    <span class="block text-emerald-700 font-extrabold text-[10px]">$770 Flat</span>
+                  </button>
+                </div>
+                <p class="text-[10px] text-slate-400">All 3 tiers are exact multiples of 11: $660 (11×60), $715 (11×65), $770 (11×70).</p>
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -304,14 +304,6 @@
 
             <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
               <span class="font-medium text-slate-700 flex items-center gap-2">
-                <input type="checkbox" id="opt_dw_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
-                Dishwasher Installation
-              </span>
-              <span class="text-slate-400 font-medium">Labor & Materials</span>
-            </label>
-
-            <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
-              <span class="font-medium text-slate-700 flex items-center gap-2">
                 <input type="checkbox" id="opt_range_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
                 Range Installation
               </span>
@@ -330,6 +322,14 @@
               <span class="font-medium text-slate-700 flex items-center gap-2">
                 <input type="checkbox" id="opt_fridge_water" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
                 Refrigeration Installation
+              </span>
+              <span class="text-slate-400 font-medium">Labor & Materials</span>
+            </label>
+
+            <label class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs select-none">
+              <span class="font-medium text-slate-700 flex items-center gap-2">
+                <input type="checkbox" id="opt_dw_hookup" class="w-4 h-4 text-emerald-600 rounded border-slate-300">
+                Dishwasher Installation
               </span>
               <span class="text-slate-400 font-medium">Labor & Materials</span>
             </label>
