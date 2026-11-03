@@ -1308,8 +1308,9 @@
       // --- MODEL D: VENDOR #1 (QUOTED) ---
       const grandQuotedTotal = parseFloat(grandQuotedInput ? grandQuotedInput.value : 0) || 0;
 
-      // Dynamic weighting rule: 10% Vendor #1 / 45% Vendor #2 / 45% Vendor #3 if Vendor #1 is lowest
-      const isGrandLowest = (selectedAppCount > 0) && (grandWebTotal < hdTotal) && (grandWebTotal < lowesTotal);
+      // Dynamic weighting rule: triggers when Vendor #1 is competitive with or lower than the big-box benchmark
+      const bigBoxAvg = (hdTotal + lowesTotal) / 2;
+      const isGrandLowest = (selectedAppCount > 0) && (grandWebTotal <= hdTotal || grandWebTotal <= lowesTotal || grandWebTotal <= bigBoxAvg);
       const wtGrand = isGrandLowest ? 0.10 : 0.70;
       const wtHD = isGrandLowest ? 0.45 : 0.15;
       const wtLowes = isGrandLowest ? 0.45 : 0.15;
@@ -1317,7 +1318,7 @@
       const weightedMarketBenchmark = (grandWebTotal * wtGrand) + (hdTotal * wtHD) + (lowesTotal * wtLowes);
 
       const weightPillText = isGrandLowest 
-        ? '⚡ 10% Vendor #1 | 45% Vendor #2 | 45% Vendor #3 (Vendor #1 Under Market)' 
+        ? '⚡ 10% Vendor #1 | 45% Vendor #2 | 45% Vendor #3 (Market Competitive)' 
         : '70% Vendor #1 | 15% Vendor #2 | 15% Vendor #3';
       const weightPillEl = document.getElementById('marketWeightPill');
       if (weightPillEl) {
@@ -1341,7 +1342,7 @@
       const footnoteEl = document.getElementById('footnoteStrategyText');
       if (footnoteEl) {
         if (isGrandLowest) {
-          footnoteEl.innerHTML = `<strong>Active Dynamic Weighting:</strong> Because Vendor #1's turnkey total ($${grandWebTotal.toFixed(2)}) is less than both Vendor #2 ($${hdTotal.toFixed(2)}) and Vendor #3 ($${lowesTotal.toFixed(2)}), the market baseline automatically re-weights to <strong>10% Vendor #1 + 45% Vendor #2 + 45% Vendor #3</strong>. This prevents Vendor #1's lower pricing from artificially deflating your client proposal while keeping the quote competitive against retail.`;
+          footnoteEl.innerHTML = `<strong>Active Dynamic Weighting:</strong> Because Vendor #1's turnkey total ($${grandWebTotal.toFixed(2)}) is competitive with or under market retail (Vendor #2: $${hdTotal.toFixed(2)} | Vendor #3: $${lowesTotal.toFixed(2)}), the market baseline automatically re-weights to <strong>10% Vendor #1 + 45% Vendor #2 + 45% Vendor #3</strong>. This protects your margins from being deflated while keeping the quote defensible against big-box retail.`;
         } else {
           footnoteEl.innerHTML = `The benchmark baseline is weighted at <strong>70% Vendor #1 (Web) + 15% Vendor #2 + 15% Vendor #3</strong>. Applying your 10% premium rounded to exact multiples of 11 ensures the proposal remains audit-proof and competitive, while your direct <strong>Vendor #1 (Quoted)</strong> contractor discount maximizes gross profit.`;
         }
@@ -1355,7 +1356,7 @@
 
       const isElectricRangeActive = hasRange && !isGasRange;
       const electricRangeMultiplier = isElectricRangeActive ? 1.01 : 1.00;
-      const microwaveMultiplier = (appMicrowave && appMicrowave.checked) ? 1.02 : 1.00;
+      const microwaveMultiplier = (appMicrowave && appMicrowave.checked) ? 1.025 : 1.00;
 
       let clientFinalQuote = 0;
       let formulaNote = '';
